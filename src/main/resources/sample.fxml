@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="105.0" prefWidth="393.0" stylesheets="style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.inspectorfiles.Controller">
+    <children>
+        <Pane prefHeight="105.0" prefWidth="511.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ChoiceBox fx:id="choiceBoxDisks" layoutX="7.0" layoutY="35.0" prefHeight="25.0" prefWidth="224.0" />
+            <Label layoutX="7.0" layoutY="7.0" prefHeight="25.0" prefWidth="150.0" text="Область снимка" textFill="WHITE" />
+            <Button fx:id="buttonScan" layoutX="235.0" layoutY="35.0" mnemonicParsing="false" onAction="#onClickScan" prefHeight="25.0" prefWidth="89.0" text="Сканировать" />
+            <ProgressBar layoutX="8.0" layoutY="63.0" prefHeight="17.0" prefWidth="377.0" progress="0.0" />
+            <Label fx:id="labelCountFiles" layoutX="9.0" layoutY="84.0" prefHeight="17.0" prefWidth="377.0" styleClass="labelCountFiles" textFill="WHITE" />
+            <Button fx:id="buttonStop" onAction="#onClickStop" layoutX="326.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Стоп" />
+         </children></Pane>
+    </children>
+</AnchorPane>

@@ -1,4 +1,4 @@
-package ru.inspectorfiles;
+package ru.inspector_files;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -7,7 +7,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import ru.inspectorfiles.ui.utils.InterfaceUtils;
+import ru.inspector_files.service.DocumentService;
+import ru.inspector_files.service.DocumentServiceImpl;
+import ru.inspector_files.ui.utils.InterfaceUtils;
 
 import java.io.File;
 import java.net.URL;
@@ -18,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Controller implements Initializable {
     private static final String WINDOWS_FOLDER = "C:/Windows";
+    private static final String PROGRAM_FILES = "C:/Program Files";
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
     private SimpleStringProperty status = new SimpleStringProperty(this, "value");
     private AtomicInteger counter = new AtomicInteger(0);
@@ -37,10 +40,12 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<FileInfo, Integer> countOfNumber;
     private Map<String, Integer> cache = new HashMap<>();
+    private DocumentService service = new DocumentServiceImpl();
 
     private void initializeCatalogScan() {
         ObservableList<File> catalogs = FXCollections.observableArrayList(File.listRoots());
         catalogs.add(new File(WINDOWS_FOLDER));
+        catalogs.add(new File(PROGRAM_FILES));
         choiceBoxDisks.setItems(catalogs);
         choiceBoxDisks.setValue(catalogs.get(0));
     }
@@ -92,8 +97,9 @@ public class Controller implements Initializable {
                 if (currentFile.isDirectory()) {
                     traversalDisk(currentFile);
                 } else {
-                    InterfaceUtils.updateElement(() -> {
+                    service.create(currentFile);
 
+                    InterfaceUtils.updateElement(() -> {
                         String value = String.format("%d | %s", counter.incrementAndGet(), currentFile.getAbsoluteFile());
                         status.set(value);
                     });

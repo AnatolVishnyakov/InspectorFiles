@@ -1,7 +1,7 @@
-package ru.inspectorfiles.ui.utils;
+package ru.inspector_files.ui.utils;
 
 import javafx.application.Platform;
-import ru.inspectorfiles.ui.ExecutableUI;
+import ru.inspector_files.ui.ExecutableUI;
 
 public final class InterfaceUtils {
     private InterfaceUtils() {

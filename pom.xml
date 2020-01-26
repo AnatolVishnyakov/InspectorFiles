@@ -13,11 +13,13 @@
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->
+        <!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
-            <version>8.0.9</version>
+            <version>9.0.9</version>
         </dependency>
+
         <!-- DB -->
         <dependency>
             <groupId>com.h2database</groupId>

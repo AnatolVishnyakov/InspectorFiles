@@ -33,12 +33,6 @@ public class Controller implements Initializable {
     private ChoiceBox<File> choiceBoxDisks;
     @FXML
     private Label labelNumberOfFiles;
-    @FXML
-    private TableView<FileInfo> fileInfoTable;
-    @FXML
-    private TableColumn<FileInfo, String> fileName;
-    @FXML
-    private TableColumn<FileInfo, Integer> countOfNumber;
     private Map<String, Integer> cache = new HashMap<>();
     private DocumentService service = new DocumentServiceImpl();
 
@@ -55,10 +49,6 @@ public class Controller implements Initializable {
         initializeCatalogScan();
         buttonStop.setDisable(true);
         labelNumberOfFiles.textProperty().bind(Bindings.convert(status));
-        fileName.setCellValueFactory(cellData -> cellData.getValue().fileNameProperty());
-        countOfNumber.setCellValueFactory(cellData -> cellData.getValue().numberOfFilesProperty().asObject());
-        // Добавление в таблицу данных из наблюдаемого списка
-        fileInfoTable.setItems(Main.getFileInfos());
     }
 
     @FXML

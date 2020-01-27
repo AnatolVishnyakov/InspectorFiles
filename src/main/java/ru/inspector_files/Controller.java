@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import ru.inspector_files.service.DocumentService;
 import ru.inspector_files.service.DocumentServiceImpl;
-import ru.inspector_files.ui.utils.InterfaceUtils;
+import ru.inspector_files.ui.InterfaceExecutor;
 
 import java.io.File;
 import java.net.URL;
@@ -70,7 +70,7 @@ public class Controller implements Initializable {
     @FXML
     public void onClickStop() {
         isStop = true;
-        InterfaceUtils.updateElement(() -> {
+        InterfaceExecutor.execute(() -> {
             buttonScan.setDisable(false);
             buttonStop.setDisable(isStop);
             status.set("Остановлен процесс сканирования...");
@@ -89,7 +89,7 @@ public class Controller implements Initializable {
                 } else {
                     service.create(currentFile);
 
-                    InterfaceUtils.updateElement(() -> {
+                    InterfaceExecutor.execute(() -> {
                         String value = String.format("%d | %s", counter.incrementAndGet(), currentFile.getAbsoluteFile());
                         status.set(value);
                     });

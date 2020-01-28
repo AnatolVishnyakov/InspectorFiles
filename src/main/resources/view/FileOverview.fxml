@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="309.0" prefWidth="393.0" stylesheets="../css/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.inspector_files.controller.Controller">
+    <children>
+        <Pane prefHeight="105.0" prefWidth="511.0" styleClass="background" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ChoiceBox fx:id="choiceBoxDisks" layoutX="7.0" layoutY="35.0" prefHeight="25.0" prefWidth="224.0"/>
+                <Label layoutX="7.0" layoutY="7.0" prefHeight="25.0" prefWidth="150.0" text="Область снимка"
+                       textFill="WHITE"/>
+                <Button fx:id="buttonScan" layoutX="235.0" layoutY="35.0" mnemonicParsing="false"
+                        onAction="#onClickScan" prefHeight="25.0" prefWidth="89.0" text="Сканировать"/>
+                <!--            <ProgressBar layoutX="8.0" layoutY="63.0" prefHeight="17.0" prefWidth="377.0" progress="0.0" />-->
+                <Label fx:id="labelNumberOfFiles" layoutX="9.0" layoutY="289.0" prefHeight="17.0" prefWidth="377.0"
+                       styleClass="labelCountFiles" textFill="WHITE"/>
+                <Button fx:id="buttonStop" layoutX="326.0" layoutY="35.0" mnemonicParsing="false"
+                        onAction="#onClickStop" prefHeight="25.0" prefWidth="58.0" text="Стоп"/>
+                <TableView fx:id="fileInfoTable" layoutX="9.0" layoutY="68.0" prefHeight="212.0" prefWidth="377.0">
+                    <columns>
+                        <TableColumn fx:id="fileName" prefWidth="100.0" text="Папка"/>
+                        <TableColumn fx:id="countOfNumber" prefWidth="168.0" text="Количество файлов"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+                <Button fx:id="buttonClose" layoutX="365.0" layoutY="1.0" mnemonicParsing="false" onAction="#onClose"
+                        style="-fx-background-color: #9F1F0E;" text="X" textFill="WHITE"/>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

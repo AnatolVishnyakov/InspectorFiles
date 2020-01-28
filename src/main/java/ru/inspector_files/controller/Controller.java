@@ -1,5 +1,6 @@
-package ru.inspector_files;
+package ru.inspector_files.controller;
 
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -96,5 +97,10 @@ public class Controller implements Initializable {
                 }
             }
         }
+    }
+
+    @FXML
+    public void onClose() {
+        Platform.exit();
     }
 }

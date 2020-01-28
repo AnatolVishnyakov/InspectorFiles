@@ -2,7 +2,7 @@ package ru.inspector_files.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ru.inspector_files.HibernateUtil;
+import ru.inspector_files.utils.HibernateUtil;
 import ru.inspector_files.model.Document;
 
 public class DocumentRepositoryImpl implements DocumentRepository {

@@ -25,6 +25,7 @@ public class DocumentServiceImpl implements DocumentService {
         document.setCheckSum(calculateCheckSum(file));
         document.setCreateTime(LocalDateTime.now());
         document.setContentType(calculateContentType(file));
+        document.setLevel(file.getAbsolutePath().replaceAll("[^/]", "").length());
         return repository.save(document);
     }
 

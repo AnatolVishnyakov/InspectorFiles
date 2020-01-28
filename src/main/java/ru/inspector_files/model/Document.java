@@ -23,6 +23,8 @@ public class Document {
     private LocalDateTime createTime;
     @Column(name = "content_type")
     private String contentType;
+    @Column
+    private int level;
 
     public Document() {
     }
@@ -73,6 +75,14 @@ public class Document {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     @Override

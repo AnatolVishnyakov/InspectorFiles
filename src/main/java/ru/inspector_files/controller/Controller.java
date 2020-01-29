@@ -8,8 +8,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import ru.inspector_files.InspectorFileApplication;
+import ru.inspector_files.model.Document;
 import ru.inspector_files.service.DocumentService;
 import ru.inspector_files.service.DocumentServiceImpl;
+import ru.inspector_files.to.DocumentTo;
 import ru.inspector_files.ui.InterfaceExecutor;
 
 import java.io.File;
@@ -27,6 +30,14 @@ public class Controller implements Initializable {
     private AtomicInteger counter = new AtomicInteger(0);
     private volatile boolean isStop;
     @FXML
+    private TableView<DocumentTo> fileInfoTable;
+    @FXML
+    private TableColumn<DocumentTo, String> pathColumn;
+    @FXML
+    private TableColumn<DocumentTo, String> nameColumn;
+    @FXML
+    private TableColumn<DocumentTo, Integer> levelColumn;
+    @FXML
     private Button buttonScan;
     @FXML
     public Button buttonStop;
@@ -34,8 +45,11 @@ public class Controller implements Initializable {
     private ChoiceBox<File> choiceBoxDisks;
     @FXML
     private Label labelNumberOfFiles;
+    @FXML
+    private ProgressBar sizeOfDisk;
     private Map<String, Integer> cache = new HashMap<>();
     private DocumentService service = new DocumentServiceImpl();
+    private InspectorFileApplication application;
 
     private void initializeCatalogScan() {
         ObservableList<File> catalogs = FXCollections.observableArrayList(File.listRoots());
@@ -50,6 +64,30 @@ public class Controller implements Initializable {
         initializeCatalogScan();
         buttonStop.setDisable(true);
         labelNumberOfFiles.textProperty().bind(Bindings.convert(status));
+        sizeOfDisk.setProgress(0);
+
+        pathColumn.setCellValueFactory(cellData -> cellData.getValue().absolutePathProperty());
+        levelColumn.setCellValueFactory(cellData -> cellData.getValue().levelProperty().asObject());
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().fileNameProperty());
+
+        new Timer().schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        ScrollBar scrollBar = (ScrollBar) fileInfoTable.lookup(".scroll-bar:vertical");
+                        double scrollBarValue = scrollBar.getValue();
+//                        fileInfoTable.sele
+
+                        ObservableList<DocumentTo> storage = application.getStorage();
+                        storage.clear();
+                        fileInfoTable.setItems(storage);
+                        List<Document> documents = service.getAllRootLevel();
+                        documents.forEach(document -> storage.add(new DocumentTo(document)));
+
+                        scrollBar.setValue(scrollBarValue);
+                        System.out.println("Call refresh");
+                    }
+                }, 5_000, 5_000);
     }
 
     @FXML
@@ -85,10 +123,11 @@ public class Controller implements Initializable {
                 if (isStop) {
                     return;
                 }
+
+                service.create(currentFile);
                 if (currentFile.isDirectory()) {
                     traversalDisk(currentFile);
                 } else {
-                    service.create(currentFile);
 
                     InterfaceExecutor.execute(() -> {
                         String value = String.format("%d | %s", counter.incrementAndGet(), currentFile.getAbsoluteFile());
@@ -102,5 +141,9 @@ public class Controller implements Initializable {
     @FXML
     public void onClose() {
         Platform.exit();
+    }
+
+    public void setInspectorFileApplication(InspectorFileApplication application) {
+        this.application = application;
     }
 }

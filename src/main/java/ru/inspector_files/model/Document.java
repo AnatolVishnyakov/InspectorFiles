@@ -4,9 +4,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
+@NamedQueries({
+        @NamedQuery(name = Document.GET_BY_LEVEL, query = "SELECT fs FROM Document fs WHERE fs.level = :level ORDER BY fs.path")
+})
 @Entity
 @Table(name = "file_storage")
 public class Document {
+    public static final String GET_BY_LEVEL = "GetDocumentByLevel";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

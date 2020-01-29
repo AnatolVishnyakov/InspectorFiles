@@ -1,16 +1,21 @@
 package ru.inspector_files;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import ru.inspector_files.controller.Controller;
+import ru.inspector_files.to.DocumentTo;
 
 import java.io.IOException;
 
 public class InspectorFileApplication extends Application {
+    private ObservableList<DocumentTo> storage = FXCollections.observableArrayList();
     private Stage primaryStage;
     private BorderPane rootLayout;
     private double xOffset = 0;
@@ -58,6 +63,9 @@ public class InspectorFileApplication extends Application {
             loader.setLocation(getClass().getResource("/view/FileOverview.fxml"));
             AnchorPane personOverview = loader.load();
 
+            Controller controller = loader.getController();
+            controller.setInspectorFileApplication(this);
+
             // Помещаем сведения о файлах в центр корневого макета
             rootLayout.setCenter(personOverview);
         } catch (IOException e) {
@@ -67,9 +75,13 @@ public class InspectorFileApplication extends Application {
 
     /**
      * Возвращает главную сцену
-     * */
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public ObservableList<DocumentTo> getStorage() {
+        return storage;
     }
 
     public static void main(String[] args) {

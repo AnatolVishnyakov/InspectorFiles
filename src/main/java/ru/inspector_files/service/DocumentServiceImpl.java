@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
@@ -25,8 +26,13 @@ public class DocumentServiceImpl implements DocumentService {
         document.setCheckSum(calculateCheckSum(file));
         document.setCreateTime(LocalDateTime.now());
         document.setContentType(calculateContentType(file));
-        document.setLevel(file.getAbsolutePath().replaceAll("[^/]", "").length());
+        document.setLevel(file.getAbsolutePath().replaceAll("[^/]", "").length() - 1);
         return repository.save(document);
+    }
+
+    @Override
+    public List<Document> getAllRootLevel() {
+        return repository.getDocumentByLevel(0);
     }
 
     private String calculateContentType(File file) {

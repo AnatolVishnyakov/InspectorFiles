@@ -5,11 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import ru.inspector_files.controller.Controller;
 import ru.inspector_files.to.DocumentTo;
 
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class InspectorFileApplication extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/RootLayout.fxml"));
             rootLayout = loader.load();
-            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
 
             rootLayout.setOnMousePressed(event -> {
                 xOffset = event.getSceneX();
@@ -49,6 +49,7 @@ public class InspectorFileApplication extends Application {
 
             // Отображаем сцену, содержащую корневой макет
             Scene scene = new Scene(rootLayout);
+            scene.setFill(Color.TRANSPARENT);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
@@ -61,10 +62,10 @@ public class InspectorFileApplication extends Application {
             // Загружаем сведения о файлах
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/FileOverview.fxml"));
-            AnchorPane personOverview = loader.load();
+            Pane personOverview = loader.load();
 
-            Controller controller = loader.getController();
-            controller.setInspectorFileApplication(this);
+//            Controller controller = loader.getController();
+//            controller.setInspectorFileApplication(this);
 
             // Помещаем сведения о файлах в центр корневого макета
             rootLayout.setCenter(personOverview);

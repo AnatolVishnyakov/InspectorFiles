@@ -1,88 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import com.jfoenix.controls.JFXTreeView?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<Pane prefHeight="670.0" prefWidth="1080.0" styleClass="window_root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.inspector_files.controller.Controller">
-   <children>
-      <VBox layoutY="141.0" prefHeight="468.0" prefWidth="253.0" styleClass="navigation_button_vbox" stylesheets="@../css/style.css">
-         <children>
-            <JFXButton mnemonicParsing="false" prefHeight="60.0" prefWidth="253.0" stylesheets="@../css/style.css" text="Сделать снимок">
-               <font>
-                  <Font size="14.0" />
-               </font></JFXButton>
-            <JFXButton mnemonicParsing="false" prefHeight="60.0" prefWidth="253.0" styleClass="navigation_button_vbox" stylesheets="@../css/style.css" text="Сравнение снимка">
-               <font>
-                  <Font size="14.0" />
-               </font></JFXButton>
-            <JFXButton disable="true" prefHeight="60.0" prefWidth="253.0" />
-            <JFXButton disable="true" prefHeight="60.0" prefWidth="253.0" />
-            <Pane prefHeight="229.0" prefWidth="253.0" styleClass="storage-details-pane" stylesheets="@../css/style.css">
-               <children>
-                  <Label layoutX="40.0" layoutY="13.0" styleClass="storage-details-pane" text="STORAGE DETAIL" />
-                  <Separator layoutX="145.0" layoutY="21.0" prefHeight="3.0" prefWidth="108.0" />
-               </children>
-            </Pane>
-         </children>
-      </VBox>
-      <BorderPane layoutX="253.0" layoutY="59.0">
-         <center>
-            <Pane prefHeight="558.0" prefWidth="827.0" styleClass="dashboard" stylesheets="@../css/style.css">
-               <children>
-                  <Label layoutX="40.0" layoutY="40.0" styleClass="pane-title" text="Снимок системы">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="40.0" layoutY="78.0" text="Сохраняется текущее состояние выбранной папки" textFill="#949494" />
-                  <JFXTreeView layoutX="40.0" layoutY="173.0" prefHeight="358.0" prefWidth="247.0" styleClass="pane-plitka" />
-                  <Label layoutX="41.0" layoutY="148.0" text="Область снимка">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Pane layoutX="314.0" layoutY="173.0" prefHeight="229.0" prefWidth="319.0" styleClass="pane-plitka">
-                     <children>
-                        <Label layoutX="15.0" layoutY="14.0" text="Типы файлов" />
-                        <JFXToggleButton layoutY="40.0" prefHeight="32.0" prefWidth="174.0" text="Все файлы         " toggleColor="#013760" toggleLineColor="#006ebc" />
-                        <JFXToggleButton layoutY="79.0" prefHeight="32.0" prefWidth="174.0" text="Файлы по маске" toggleColor="#013760" toggleLineColor="#006ebc" />
-                        <JFXTextField disable="true" labelFloat="true" layoutX="14.0" layoutY="134.0" prefHeight="26.0" prefWidth="288.0" promptText="Включая файлы по маске" />
-                        <JFXTextField disable="true" labelFloat="true" layoutX="14.0" layoutY="179.0" prefHeight="26.0" prefWidth="288.0" promptText="Исключая файлы по маске" />
-                     </children>
-                  </Pane>
-                  <Pane layoutX="37.0" layoutY="103.0" prefHeight="43.0" prefWidth="597.0" styleClass="pane-plitka">
-                     <children>
-                        <JFXComboBox layoutX="5.0" layoutY="10.0" prefHeight="28.0" prefWidth="447.0" />
-                        <JFXButton layoutX="462.0" layoutY="5.0" prefHeight="34.0" prefWidth="128.0" styleClass="file-chooser" stylesheets="@../css/style.css" text="Выбрать" />
-                     </children>
-                  </Pane>
-                  <JFXButton disable="true" layoutX="705.0" layoutY="491.0" prefHeight="53.0" prefWidth="108.0" ripplerFill="#612133" styleClass="stop-button" text="Стоп" />
-                  <JFXButton layoutX="595.0" layoutY="491.0" prefHeight="53.0" prefWidth="103.0" ripplerFill="#1c3a51" styleClass="start-button" text="Пуск" />
-               </children>
-            </Pane>
-         </center>
-      </BorderPane>
-      <HBox layoutX="268.0" prefHeight="60.0" prefWidth="812.0" styleClass="navigation_button_hbox" stylesheets="@../css/style.css">
-         <children>
-            <JFXButton mnemonicParsing="false" prefHeight="59.0" prefWidth="164.0" text="Dashboard">
-               <font>
-                  <Font size="14.0" />
-               </font></JFXButton>
-            <JFXButton mnemonicParsing="false" prefHeight="59.0" prefWidth="164.0" text="...">
-               <font>
-                  <Font size="14.0" />
-               </font></JFXButton>
-         </children>
-      </HBox>
-   </children>
+<Pane prefHeight="558.0" prefWidth="827.0" styleClass="dashboard" stylesheets="@../css/style.css">
+    <children>
+        <Label layoutX="40.0" layoutY="40.0" styleClass="pane-title" text="Снимок системы">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </Label>
+        <Label layoutX="40.0" layoutY="78.0" text="Сохраняется текущее состояние выбранной папки"
+               textFill="#949494"/>
+        <JFXTreeView layoutX="40.0" layoutY="173.0" prefHeight="358.0" prefWidth="247.0"
+                     styleClass="pane-plitka"/>
+        <Label layoutX="41.0" layoutY="148.0" text="Область снимка">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Pane layoutX="314.0" layoutY="173.0" prefHeight="229.0" prefWidth="319.0"
+              styleClass="pane-plitka">
+            <children>
+                <Label layoutX="15.0" layoutY="14.0" text="Типы файлов"/>
+                <JFXToggleButton layoutY="40.0" prefHeight="32.0" prefWidth="174.0"
+                                 text="Все файлы         " toggleColor="#013760"
+                                 toggleLineColor="#006ebc"/>
+                <JFXToggleButton layoutY="79.0" prefHeight="32.0" prefWidth="174.0"
+                                 text="Файлы по маске" toggleColor="#013760"
+                                 toggleLineColor="#006ebc"/>
+                <JFXTextField disable="true" labelFloat="true" layoutX="14.0" layoutY="134.0"
+                              prefHeight="26.0" prefWidth="288.0"
+                              promptText="Включая файлы по маске"/>
+                <JFXTextField disable="true" labelFloat="true" layoutX="14.0" layoutY="179.0"
+                              prefHeight="26.0" prefWidth="288.0"
+                              promptText="Исключая файлы по маске"/>
+            </children>
+        </Pane>
+        <Pane layoutX="37.0" layoutY="103.0" prefHeight="43.0" prefWidth="597.0"
+              styleClass="pane-plitka">
+            <children>
+                <JFXComboBox layoutX="5.0" layoutY="10.0" prefHeight="28.0" prefWidth="447.0"/>
+                <JFXButton layoutX="462.0" layoutY="5.0" prefHeight="34.0" prefWidth="128.0"
+                           styleClass="file-chooser" stylesheets="@../css/style.css"
+                           text="Выбрать"/>
+            </children>
+        </Pane>
+        <JFXButton disable="true" layoutX="705.0" layoutY="491.0" prefHeight="53.0"
+                   prefWidth="108.0" ripplerFill="#612133" styleClass="stop-button" text="Стоп"/>
+        <JFXButton layoutX="595.0" layoutY="491.0" prefHeight="53.0" prefWidth="103.0"
+                   ripplerFill="#1c3a51" styleClass="start-button" text="Пуск"/>
+    </children>
 </Pane>

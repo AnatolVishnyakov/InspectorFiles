@@ -1,95 +1,55 @@
-/*-fx-border-color: white;*/
-/*-fx-background-color: rgb(45, 45, 50), rgb(60, 60, 65);*/
-/*-fx-background-insets: 0, 0 1 1 0;*/
-
-/* WINDOW */
+/* Константы */
 * {
+    /* Цветовая палитра */
     -fx-primary-color: #013760;
+    -fx-primary-advanced-color: #2d587b;
+    -fx-secondary-color: #FAFAFA;
+    -fx-panel-color: #d6dfe6;
+    -fx-button-color: #012347;
 }
 
-/* ROOT PANE*/
-* {
-    -fx-button-color: #4090cb;
-    -fx-dashboard-pane-color: #f5f7fb;
-}
-
-/* HORIZONTAL PANE */
-* {
-    -fx-text-color: #2d587b;
-    -fx-selected-text-color: white;
-}
-
-/* VERTICAL PANE */
-* {
-    -fx-text-color: #d6dfe6;
-}
-
-.window_root {
+/* Основное окно приложения*/
+.window-root {
+    -fx-background-color: -fx-primary-color;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-background-color: #013760;
 }
 
-.dashboard {
+/* Рабочая область */
+.central-panel {
     -fx-background-radius: 10 0 0 10;
     -fx-border-radius: 10;
-    -fx-background-color: #f5f7fb;
+    -fx-background-color: -fx-secondary-color;
 }
 
-.jfx-button {
-    -fx-font-family: "Roboto Medium";
+.window-root .jfx-button {
     -fx-font-size: 14px;
+    -fx-font-family: "Roboto Medium";
 }
 
-.navigation_button_hbox .jfx-button {
-    -fx-background-color: #013760;
-    -fx-text-fill: #2d587b;
-    -fx-background-radius: 0;
-    -fx-text-alignment: center;
+/* Верхняя навигация */
+.navigation-horizontal-box .jfx-button {
+    -fx-text-fill: -fx-secondary-color;
 }
 
-.navigation_button_hbox .jfx-button:focused {
-    -fx-text-fill: white;
-}
-
-.navigation_button_vbox .jfx-button {
-    -fx-text-fill: #cfcdc6;
+/* Боковая навигация */
+.navigation-vertical-box .jfx-button {
+    -fx-text-fill: -fx-secondary-color;
     -fx-padding: 0 0 0 40;
     -fx-alignment: LEFT;
 }
 
-.pane-title {
-    -fx-font-size: 24px;
-    -fx-font-family: "Roboto Medium";
-}
-
-.pane-plitka {
-    -fx-background-color: white;
-}
-
-.file-chooser {
-    -fx-background-color: #e0e0e0;
-}
-
-.storage-details-pane {
-
-}
-
-.storage-details-pane .label {
+/* Панель с деталями о хранилище */
+.window-root .storage-pane {
     -fx-text-fill: #cfd8dc;
     -fx-font-family: "Roboto Bold";
 }
 
-.storage-details-pane .separator *.line {
+.storage-pane .label {
+    -fx-text-fill: #cfd8dc;
+    -fx-font-family: "Roboto Bold";
+}
+
+.storage-pane .separator *.line {
     -fx-border-color: #2d587b;
-}
-
-.start-button {
-    -fx-background-color: #2d587b;
-    -fx-text-fill: #cfcdc6;
-}
-
-.stop-button {
-    -fx-text-fill: #cfcdc6;
-    -fx-background-color: #b71c1c;
 }

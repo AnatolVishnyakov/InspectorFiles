@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -17,7 +17,6 @@ import java.io.IOException;
 public class InspectorFileApplication extends Application {
     private ObservableList<DocumentTo> storage = FXCollections.observableArrayList();
     private Stage primaryStage;
-    private BorderPane rootLayout;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -26,8 +25,6 @@ public class InspectorFileApplication extends Application {
         this.primaryStage = primaryStage;
 
         initRootLayout();
-
-        showFileOverview();
     }
 
     private void initRootLayout() {
@@ -35,7 +32,7 @@ public class InspectorFileApplication extends Application {
             // Загружаем корневой макет из fxml файла
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/RootLayout.fxml"));
-            rootLayout = loader.load();
+            AnchorPane rootLayout = loader.load();
             primaryStage.initStyle(StageStyle.TRANSPARENT);
 
             rootLayout.setOnMousePressed(event -> {
@@ -52,23 +49,6 @@ public class InspectorFileApplication extends Application {
             scene.setFill(Color.TRANSPARENT);
             primaryStage.setScene(scene);
             primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showFileOverview() {
-        try {
-            // Загружаем сведения о файлах
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/FileOverview.fxml"));
-            Pane personOverview = loader.load();
-
-//            Controller controller = loader.getController();
-//            controller.setInspectorFileApplication(this);
-
-            // Помещаем сведения о файлах в центр корневого макета
-            rootLayout.setCenter(personOverview);
         } catch (IOException e) {
             e.printStackTrace();
         }

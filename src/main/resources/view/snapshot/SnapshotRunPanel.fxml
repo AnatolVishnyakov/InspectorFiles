@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<Pane prefHeight="558.0" prefWidth="827.0" styleClass="dashboard" stylesheets="@../css/style.css">
+<Pane prefHeight="558.0" prefWidth="827.0" styleClass="common_panel" stylesheets="@../../css/style.css">
     <children>
         <Label layoutX="40.0" layoutY="40.0" styleClass="pane-title" text="Снимок системы">
             <font>
@@ -43,7 +43,7 @@
             <children>
                 <JFXComboBox layoutX="5.0" layoutY="10.0" prefHeight="28.0" prefWidth="447.0"/>
                 <JFXButton layoutX="462.0" layoutY="5.0" prefHeight="34.0" prefWidth="128.0"
-                           styleClass="file-chooser" stylesheets="@../css/style.css"
+                           styleClass="file-chooser" stylesheets="@../../css/style.css"
                            text="Выбрать"/>
             </children>
         </Pane>

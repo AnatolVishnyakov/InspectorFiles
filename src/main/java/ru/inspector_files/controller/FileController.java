@@ -22,7 +22,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Controller implements Initializable {
+@Deprecated
+public class FileController implements Initializable {
     private static final String WINDOWS_FOLDER = "C:/Windows";
     private static final String PROGRAM_FILES = "C:/Program Files";
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -64,7 +65,7 @@ public class Controller implements Initializable {
         initializeCatalogScan();
         buttonStop.setDisable(true);
         labelNumberOfFiles.textProperty().bind(Bindings.convert(status));
-        sizeOfDisk.setProgress(0);
+//        sizeOfDisk.setProgress(0);
 
         pathColumn.setCellValueFactory(cellData -> cellData.getValue().absolutePathProperty());
         levelColumn.setCellValueFactory(cellData -> cellData.getValue().levelProperty().asObject());

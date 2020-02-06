@@ -20,6 +20,7 @@ public class SnapshotController extends AbstractController implements Initializa
         setContentPanel(snapshotRunPanel);
     }
 
+    @FXML
     public void onEqualsSnapshotButton(ActionEvent actionEvent) {
         URL snapshotRunPanel = getClass().getResource("/view/snapshot/SnapshotEqualsPanel.fxml");
         setContentPanel(snapshotRunPanel);

@@ -53,3 +53,19 @@
 .storage-pane .separator *.line {
     -fx-border-color: #2d587b;
 }
+
+/* Кнопки */
+.info {
+    -fx-background-color: -fx-primary-advanced-color;
+    -fx-text-fill: -fx-secondary-color;
+
+}
+
+.error {
+    -fx-background-color: #9f1f0e;
+    -fx-text-fill: -fx-secondary-color;
+}
+
+.stub {
+    -fx-background-color: #CFD8DC;
+}

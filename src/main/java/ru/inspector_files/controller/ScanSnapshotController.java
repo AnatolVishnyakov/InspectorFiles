@@ -5,8 +5,7 @@ import com.jfoenix.controls.JFXTreeView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBoxTreeItem;
-import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.stage.DirectoryChooser;
 import ru.inspector_files.ui.controls.FolderTreeItem;
@@ -14,36 +13,26 @@ import ru.inspector_files.ui.controls.FolderTreeItem;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class ScanSnapshotController implements Initializable {
     @FXML
     private JFXComboBox comboBoxPath;
     @FXML
-    private JFXTreeView folderTree;
+    private JFXTreeView<File> folderTree;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File rootFolder = new File("/");
-        CheckBoxTreeItem<File> root = new FolderTreeItem(rootFolder);
-        root.setExpanded(true);
-        root.getChildren().addAll(getCheckBoxTreeItem(rootFolder));
+        File[] localDisks = File.listRoots();
 
+        TreeItem<File> root = new TreeItem<>();
+        Arrays.stream(localDisks).forEach(disk -> {
+            FolderTreeItem item = new FolderTreeItem(disk);
+            root.getChildren().add(item);
+        });
         folderTree.setRoot(root);
-        folderTree.setCellFactory(CheckBoxTreeCell.<File>forTreeView());
-    }
-
-    private List<CheckBoxTreeItem<File>> getCheckBoxTreeItem(File folder) {
-        return getHierarchyFolders(folder).stream()
-                .map(CheckBoxTreeItem::new)
-                .collect(Collectors.toList());
-    }
-
-    private List<File> getHierarchyFolders(File folder) {
-        return Arrays.stream(Objects.requireNonNull(folder.listFiles())).collect(Collectors.toList());
+        folderTree.setShowRoot(false);
+        folderTree.setCellFactory(CheckBoxTreeCell.forTreeView());
     }
 
     @FXML
@@ -59,7 +48,7 @@ public class ScanSnapshotController implements Initializable {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(folderTree.getScene().getWindow());
 
-        if(selectedDirectory != null){
+        if (selectedDirectory != null) {
             comboBoxPath.getItems().removeAll();
             comboBoxPath.getItems().add(selectedDirectory.getAbsoluteFile());
             comboBoxPath.getSelectionModel().select(0);

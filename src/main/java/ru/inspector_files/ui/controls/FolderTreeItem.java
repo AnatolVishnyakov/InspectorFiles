@@ -4,11 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TreeItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Arrays;
 
 public class FolderTreeItem extends CheckBoxTreeItem<File> {
+    private static final Logger logger = LoggerFactory.getLogger("logger.debug");
     private static final File[] EMPTY_ARRAY = {};
     private boolean isFirstTimeChildren = true;
 
@@ -16,13 +19,17 @@ public class FolderTreeItem extends CheckBoxTreeItem<File> {
         super(new File(file.getAbsolutePath()) {
             @Override
             public String toString() {
-                return getName();
+                if (this.getName().isEmpty()) {
+                    return this.getAbsolutePath();
+                }
+                return this.getName();
             }
         });
     }
 
     @Override
     public ObservableList<TreeItem<File>> getChildren() {
+        logger.debug("getChildren");
         if (isFirstTimeChildren) {
             isFirstTimeChildren = false;
             super.getChildren().setAll(buildChildren(this));
@@ -32,11 +39,13 @@ public class FolderTreeItem extends CheckBoxTreeItem<File> {
 
     @Override
     public boolean isLeaf() {
-        File file = getValue();
-        return !hasFolders(file);
+        logger.debug("isLeaf: " + getValue().getAbsolutePath());
+        File[] files = getValue().listFiles(File::isDirectory);
+        return files == null || files.length == 0;
     }
 
     private ObservableList<CheckBoxTreeItem<File>> buildChildren(CheckBoxTreeItem<File> item) {
+        logger.debug("buildChildren: " + item.getValue().getAbsolutePath());
         File currentFile = item.getValue();
         if (hasFolders(currentFile)) {
             ObservableList<CheckBoxTreeItem<File>> children = FXCollections.observableArrayList();

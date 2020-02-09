@@ -13,7 +13,6 @@ import java.util.Arrays;
 public class FolderTreeItem extends CheckBoxTreeItem<File> {
     private static final Logger logger = LoggerFactory.getLogger("logger.debug");
     private static final File[] EMPTY_ARRAY = {};
-    private boolean isFirstTimeChildren = true;
 
     public FolderTreeItem(File file) {
         super(new File(file.getAbsolutePath()) {
@@ -25,15 +24,14 @@ public class FolderTreeItem extends CheckBoxTreeItem<File> {
                 return this.getName();
             }
         });
+        this.expandedProperty().addListener((observable, oldValue, newValue) -> {
+            super.getChildren().setAll(buildChildren(this));
+        });
     }
 
     @Override
     public ObservableList<TreeItem<File>> getChildren() {
         logger.debug("getChildren");
-        if (isFirstTimeChildren) {
-            isFirstTimeChildren = false;
-            super.getChildren().setAll(buildChildren(this));
-        }
         return super.getChildren();
     }
 
@@ -53,7 +51,11 @@ public class FolderTreeItem extends CheckBoxTreeItem<File> {
             File[] folders = getFolders(currentFile);
             for (File childFolder : folders) {
                 if (hasFolders(childFolder)) {
-                    children.add(new FolderTreeItem(childFolder));
+                    FolderTreeItem folderTreeItem = new FolderTreeItem(childFolder);
+                    if (item.isSelected()) {
+                        folderTreeItem.setSelected(true);
+                    }
+                    children.add(folderTreeItem);
                 }
             }
 

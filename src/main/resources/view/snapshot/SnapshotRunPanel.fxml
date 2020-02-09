@@ -14,13 +14,13 @@
             </font>
         </Label>
         <Label layoutX="40.0" layoutY="78.0" text="Сохраняется текущее состояние выбранной папки" textFill="#949494"/>
-        <JFXTreeView fx:id="folderTree" layoutX="40.0" layoutY="173.0" prefHeight="358.0" prefWidth="247.0"/>
-        <Label layoutX="41.0" layoutY="150.0" text="Область сканирования">
+        <JFXTreeView fx:id="folderTree" layoutX="40.0" layoutY="130.0" prefHeight="411.0" prefWidth="247.0"/>
+        <Label layoutX="41.0" layoutY="107.0" text="Область сканирования">
             <font>
                 <Font size="14.0"/>
             </font>
         </Label>
-        <Pane layoutX="314.0" layoutY="173.0" prefHeight="211.0" prefWidth="308.0">
+        <Pane layoutX="314.0" layoutY="130.0" prefHeight="211.0" prefWidth="308.0">
             <children>
                 <Label layoutX="15.0" layoutY="14.0" text="Типы файлов"/>
                 <JFXToggleButton alignment="CENTER_LEFT" layoutY="39.0" prefHeight="35.0" prefWidth="164.0"
@@ -33,23 +33,18 @@
                               prefWidth="288.0" promptText="Исключая файлы по маске"/>
             </children>
         </Pane>
-        <Pane layoutX="37.0" layoutY="103.0" prefHeight="43.0" prefWidth="754.0">
-            <children>
-                <JFXComboBox fx:id="comboBoxPath" disable="true" layoutX="4.0" layoutY="8.0" prefHeight="28.0"
-                             prefWidth="581.0" promptText="Режим хранения снимка"/>
-                <JFXButton alignment="CENTER" layoutX="595.0" layoutY="5.0" onAction="#onSelectFolder" prefHeight="34.0"
-                           prefWidth="155.0" styleClass="stub" text="Выбрать папку"/>
-            </children>
-        </Pane>
-        <JFXButton layoutX="571.0" layoutY="478.0" onAction="#onScan" prefHeight="53.0" prefWidth="103.0"
+        <JFXButton layoutX="593.0" layoutY="489.0" onAction="#onScan" prefHeight="53.0" prefWidth="103.0"
                    ripplerFill="#1c3a51" styleClass="info" text="Пуск"/>
-        <JFXButton layoutX="683.0" layoutY="478.0" onAction="#onStop" prefHeight="53.0" prefWidth="108.0"
+        <JFXButton layoutX="705.0" layoutY="489.0" onAction="#onStop" prefHeight="53.0" prefWidth="108.0"
                    ripplerFill="#612133" styleClass="error" text="Стоп"/>
-        <Pane layoutX="314.0" layoutY="383.0" prefHeight="96.0" prefWidth="308.0">
+        <Pane layoutX="314.0" layoutY="340.0" prefHeight="150.0" prefWidth="308.0">
             <children>
                 <Label layoutX="15.0" layoutY="14.0" text="Режим сканирования"/>
-                <JFXToggleButton alignment="CENTER_LEFT" layoutY="34.0" prefHeight="58.0" prefWidth="214.0"
+                <JFXToggleButton alignment="CENTER_LEFT" layoutY="37.0" prefHeight="58.0" prefWidth="214.0"
                                  text="Стандартный" toggleColor="#013760" toggleLineColor="#006ebc" wrapText="true"/>
+                <JFXToggleButton alignment="CENTER_LEFT" layoutY="77.0" prefHeight="58.0" prefWidth="214.0"
+                                 text="Быстрый (без анализа содержимого файлов)" toggleColor="#013760"
+                                 toggleLineColor="#006ebc" wrapText="true"/>
             </children>
         </Pane>
     </children>

@@ -9,10 +9,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FolderTreeItem extends CheckBoxTreeItem<File> {
     private static final Logger logger = LoggerFactory.getLogger("logger.debug");
     private static final File[] EMPTY_ARRAY = {};
+    private static final Set<File> selectedFolders = new HashSet<>();
 
     public FolderTreeItem(File file) {
         super(new File(file.getAbsolutePath()) {
@@ -26,24 +29,36 @@ public class FolderTreeItem extends CheckBoxTreeItem<File> {
         });
         this.expandedProperty().addListener((observable, oldValue, newValue) -> {
             super.getChildren().setAll(buildChildren(this));
+            TreeItem<File> parent = getParent();
+            if (parent.getValue() == null) {
+                selectedFolders.remove(getValue());
+                System.out.println("remove: " + getValue());
+            }
+        });
+        this.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                selectedFolders.add(getValue());
+            } else {
+                selectedFolders.remove(getValue());
+            }
         });
     }
 
     @Override
     public ObservableList<TreeItem<File>> getChildren() {
-        logger.debug("getChildren");
+        logger.debug("getChildren: {}", getValue());
         return super.getChildren();
     }
 
     @Override
     public boolean isLeaf() {
-        logger.debug("isLeaf: " + getValue().getAbsolutePath());
+        logger.debug("isLeaf: {}", getValue());
         File[] files = getValue().listFiles(File::isDirectory);
         return files == null || files.length == 0;
     }
 
     private ObservableList<CheckBoxTreeItem<File>> buildChildren(CheckBoxTreeItem<File> item) {
-        logger.debug("buildChildren: " + item.getValue().getAbsolutePath());
+        logger.debug("buildChildren: {}", item.getValue());
         File currentFile = item.getValue();
         if (hasFolders(currentFile)) {
             ObservableList<CheckBoxTreeItem<File>> children = FXCollections.observableArrayList();
@@ -85,5 +100,9 @@ public class FolderTreeItem extends CheckBoxTreeItem<File> {
             }
         }
         return EMPTY_ARRAY;
+    }
+
+    public Set<File> getSelectedFolders() {
+        return selectedFolders;
     }
 }

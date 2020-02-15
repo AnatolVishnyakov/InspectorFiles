@@ -14,7 +14,7 @@
             </font>
         </Label>
         <Label layoutX="40.0" layoutY="78.0" text="Сохраняется текущее состояние выбранной папки" textFill="#949494"/>
-        <JFXTreeView fx:id="folderTree" layoutX="40.0" layoutY="130.0" prefHeight="411.0" prefWidth="247.0"/>
+        <JFXTreeView fx:id="folderTree" layoutX="40.0" layoutY="130.0" prefHeight="384.0" prefWidth="247.0"/>
         <Label layoutX="41.0" layoutY="107.0" text="Область сканирования">
             <font>
                 <Font size="14.0"/>
@@ -33,11 +33,11 @@
                               prefWidth="288.0" promptText="Исключая файлы по маске"/>
             </children>
         </Pane>
-        <JFXButton layoutX="593.0" layoutY="489.0" onAction="#onScan" prefHeight="53.0" prefWidth="103.0"
+        <JFXButton layoutX="593.0" layoutY="491.0" onAction="#onScan" prefHeight="53.0" prefWidth="103.0"
                    ripplerFill="#1c3a51" styleClass="info" text="Пуск"/>
-        <JFXButton layoutX="705.0" layoutY="489.0" onAction="#onStop" prefHeight="53.0" prefWidth="108.0"
+        <JFXButton layoutX="705.0" layoutY="491.0" onAction="#onStop" prefHeight="53.0" prefWidth="108.0"
                    ripplerFill="#612133" styleClass="error" text="Стоп"/>
-        <Pane layoutX="314.0" layoutY="340.0" prefHeight="150.0" prefWidth="308.0">
+        <Pane layoutX="314.0" layoutY="340.0" prefHeight="173.0" prefWidth="308.0">
             <children>
                 <Label layoutX="15.0" layoutY="14.0" text="Режим сканирования"/>
                 <JFXToggleButton alignment="CENTER_LEFT" layoutY="37.0" prefHeight="58.0" prefWidth="214.0"
@@ -47,5 +47,7 @@
                                  toggleLineColor="#006ebc" wrapText="true"/>
             </children>
         </Pane>
+        <JFXProgressBar layoutX="41.0" layoutY="549.0" prefHeight="2.0" prefWidth="772.0"/>
+        <Label layoutX="40.0" layoutY="526.0" prefHeight="17.0" prefWidth="546.0"/>
     </children>
 </Pane>

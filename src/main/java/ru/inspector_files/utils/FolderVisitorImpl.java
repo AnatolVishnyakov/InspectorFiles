@@ -1,33 +1,44 @@
 package ru.inspector_files.utils;
 
-import java.io.File;
+import ru.inspector_files.service.DocumentService;
+import ru.inspector_files.service.DocumentServiceImpl;
+
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
+import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public class FolderVisitorImpl implements FileVisitor<File> {
+public class FolderVisitorImpl implements FileVisitor<Path> {
+    private AtomicBoolean isRunning;
+    private DocumentService service = new DocumentServiceImpl();
+
     @Override
-    public FileVisitResult preVisitDirectory(File dir, BasicFileAttributes attrs) throws IOException {
-        System.out.println("preVisitDirectory");
-        return null;
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+        if (!isRunning.get()) {
+            return FileVisitResult.TERMINATE;
+        }
+        return FileVisitResult.CONTINUE;
     }
 
     @Override
-    public FileVisitResult visitFile(File file, BasicFileAttributes attrs) throws IOException {
-        System.out.println("visitFile");
-        return null;
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        service.create(file.toFile());
+        return FileVisitResult.CONTINUE;
     }
 
     @Override
-    public FileVisitResult visitFileFailed(File file, IOException exc) throws IOException {
-        System.out.println("visitFileFailed");
-        return null;
+    public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+        return FileVisitResult.CONTINUE;
     }
 
     @Override
-    public FileVisitResult postVisitDirectory(File dir, IOException exc) throws IOException {
-        System.out.println("postVisitDirectory");
-        return null;
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+        return FileVisitResult.CONTINUE;
+    }
+
+    public void setFlowCondition(AtomicBoolean isRunning) {
+        this.isRunning = isRunning;
     }
 }

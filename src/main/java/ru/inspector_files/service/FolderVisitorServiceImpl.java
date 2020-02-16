@@ -28,11 +28,10 @@ public class FolderVisitorServiceImpl implements FolderVisitorService {
             logger.info("Не выбрана ни одна из директорий!");
             return;
         }
-        logger.info("Запущен процесс сканирования директорий: {}", folders);
 
+        logger.info("Запущен процесс сканирования директорий: {}", folders);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
-            logger.info(folders.toString());
             for (Iterator<File> iterator = folders.iterator(); iterator.hasNext() && isRunning.get(); ) {
                 File folder = iterator.next();
                 logger.info("Сканируется директория: {}", folder.toString());

@@ -39,7 +39,7 @@
     </root>
 
     <logger name="logger.debug" level="debug" additivity="false">
-        <appender-ref ref="RollingFile"/>
+        <appender-ref ref="Console"/>
     </logger>
 
 </configuration>

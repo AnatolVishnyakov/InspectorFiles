@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.JFXTreeView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<Pane prefHeight="558.0" prefWidth="827.0" styleClass="central-panel" stylesheets="@/css/style.css"
+
+<Pane fx:id="scanSnapshotPane" prefHeight="558.0" prefWidth="827.0" styleClass="central-panel" stylesheets="@/css/style.css"
       xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="ru.inspector_files.controller.ScanSnapshotController">
     <children>
@@ -33,21 +37,20 @@
                               prefWidth="288.0" promptText="Исключая файлы по маске"/>
             </children>
         </Pane>
-        <JFXButton layoutX="593.0" layoutY="491.0" onAction="#onScan" prefHeight="53.0" prefWidth="103.0"
-                   ripplerFill="#1c3a51" styleClass="info" text="Пуск"/>
-        <JFXButton layoutX="705.0" layoutY="491.0" onAction="#onStop" prefHeight="53.0" prefWidth="108.0"
-                   ripplerFill="#612133" styleClass="error" text="Стоп"/>
+        <JFXButton fx:id="buttonScan" layoutX="593.0" layoutY="491.0" onAction="#onScan" prefHeight="53.0"
+                   prefWidth="103.0" ripplerFill="#1c3a51" styleClass="info" text="Пуск"/>
+        <JFXButton fx:id="buttonStop" layoutX="705.0" layoutY="491.0" onAction="#onStop" prefHeight="53.0"
+                   prefWidth="108.0" ripplerFill="#612133" styleClass="error" text="Стоп"/>
         <Pane layoutX="314.0" layoutY="340.0" prefHeight="173.0" prefWidth="308.0">
             <children>
                 <Label layoutX="15.0" layoutY="14.0" text="Режим сканирования"/>
-                <JFXToggleButton alignment="CENTER_LEFT" layoutY="37.0" prefHeight="58.0" prefWidth="214.0"
+                <JFXToggleButton alignment="CENTER_LEFT" layoutY="37.0" prefHeight="58.0" prefWidth="269.0"
                                  text="Стандартный" toggleColor="#013760" toggleLineColor="#006ebc" wrapText="true"/>
-                <JFXToggleButton alignment="CENTER_LEFT" layoutY="77.0" prefHeight="58.0" prefWidth="214.0"
+                <JFXToggleButton alignment="CENTER_LEFT" layoutY="79.0" prefHeight="58.0" prefWidth="269.0"
                                  text="Быстрый (без анализа содержимого файлов)" toggleColor="#013760"
                                  toggleLineColor="#006ebc" wrapText="true"/>
             </children>
         </Pane>
-        <JFXProgressBar layoutX="41.0" layoutY="549.0" prefHeight="2.0" prefWidth="772.0"/>
-        <Label layoutX="40.0" layoutY="526.0" prefHeight="17.0" prefWidth="546.0"/>
+        <Label layoutX="40.0" layoutY="526.0" prefHeight="17.0" prefWidth="247.0"/>
     </children>
 </Pane>

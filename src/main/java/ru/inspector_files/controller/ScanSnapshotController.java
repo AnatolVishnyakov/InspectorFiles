@@ -1,11 +1,16 @@
 package ru.inspector_files.controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeView;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.CheckBoxTreeCell;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.inspector_files.service.FolderVisitorService;
@@ -13,6 +18,7 @@ import ru.inspector_files.service.FolderVisitorServiceImpl;
 import ru.inspector_files.ui.controls.FolderTreeItem;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -24,7 +30,13 @@ public class ScanSnapshotController implements Initializable {
     private AtomicBoolean isRunning = new AtomicBoolean(false);
     private FolderVisitorService service = new FolderVisitorServiceImpl(isRunning);
     @FXML
+    private Pane scanSnapshotPane;
+    @FXML
     private JFXTreeView<File> folderTree;
+    @FXML
+    private JFXButton buttonScan;
+    @FXML
+    public JFXButton buttonStop;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,15 +51,36 @@ public class ScanSnapshotController implements Initializable {
         folderTree.setRoot(root);
         folderTree.setShowRoot(false);
         folderTree.setCellFactory(CheckBoxTreeCell.forTreeView());
+
+        buttonScan.setDisable(false);
+        buttonScan.addEventHandler(ActionEvent.ANY, mouseEvent -> {
+            if (!getSelectedFolders().isEmpty()) {
+                buttonScan.setDisable(true);
+                buttonStop.setDisable(false);
+            }
+        });
+        buttonStop.setDisable(true);
+        buttonStop.addEventHandler(ActionEvent.ANY, mouseEvent -> {
+            buttonScan.setDisable(false);
+            buttonStop.setDisable(true);
+        });
     }
 
     @FXML
     public void onScan() {
-        ObservableList<TreeItem<File>> children = folderTree.getRoot().getChildren();
-        FolderTreeItem folderTreeItem = (FolderTreeItem) children.get(0);
-        Set<File> folders = folderTreeItem.getSelectedFolders();
         isRunning.set(true);
-        service.walk(folders);
+        service.walk(getSelectedFolders());
+        URL blockScreenLayout = getClass().getResource("/view/snapshot/ProgressScreenLayout.fxml");
+        BorderPane parent = (BorderPane) scanSnapshotPane.getParent();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(blockScreenLayout);
+        try {
+            Pane content = loader.load();
+            parent.setCenter(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -56,5 +89,11 @@ public class ScanSnapshotController implements Initializable {
             logger.info("Процесс сканирования прерван вручную");
             isRunning.set(false);
         }
+    }
+
+    private Set<File> getSelectedFolders() {
+        ObservableList<TreeItem<File>> children = folderTree.getRoot().getChildren();
+        FolderTreeItem folderTreeItem = (FolderTreeItem) children.get(0);
+        return folderTreeItem.getSelectedFolders();
     }
 }

@@ -1,8 +1,13 @@
 package ru.inspector_files.utils;
 
+import com.jfoenix.controls.JFXProgressBar;
+import javafx.scene.control.Label;
 import ru.inspector_files.service.DocumentService;
 import ru.inspector_files.service.DocumentServiceImpl;
+import ru.inspector_files.to.ProgressComponent;
+import ru.inspector_files.ui.InterfaceExecutor;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
@@ -11,8 +16,22 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FolderVisitorImpl implements FileVisitor<Path> {
-    private AtomicBoolean isRunning;
     private DocumentService service = new DocumentServiceImpl();
+    private AtomicBoolean isRunning;
+    private long sizeAllDirectory = 0;
+    private int percentageProcess = 0;
+    private final JFXProgressBar scanStatusProgressBar;
+    private final Label folderPathLabel;
+    private final Label stateInMemoryLabel;
+    private final Label durationInPercentage;
+
+    public FolderVisitorImpl(ProgressComponent progressComponent) {
+        this.isRunning = progressComponent.getIsRunning();
+        this.folderPathLabel = progressComponent.getFolderPathLabel();
+        this.stateInMemoryLabel = progressComponent.getStateInMemoryLabel();
+        this.durationInPercentage = progressComponent.getDurationInPercentage();
+        this.scanStatusProgressBar = progressComponent.getScanStatusProgressBar();
+    }
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
@@ -23,8 +42,21 @@ public class FolderVisitorImpl implements FileVisitor<Path> {
     }
 
     @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        service.create(file.toFile());
+    public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
+        File file = path.toFile();
+        InterfaceExecutor.execute(() -> {
+            folderPathLabel.setText(file.getAbsolutePath());
+        });
+        service.create(file);
+        sizeAllDirectory += file.length();
+        InterfaceExecutor.execute(() -> {
+            long size = (long) stateInMemoryLabel.getUserData();
+            String sizeLabel = " of " + size + " bytes";
+            stateInMemoryLabel.setText(sizeAllDirectory + sizeLabel);
+            percentageProcess = (int) ((sizeAllDirectory * 100) / size);
+            durationInPercentage.setText(percentageProcess + "%");
+            scanStatusProgressBar.setProgress((double) percentageProcess / 100);
+        });
         return FileVisitResult.CONTINUE;
     }
 
@@ -36,9 +68,5 @@ public class FolderVisitorImpl implements FileVisitor<Path> {
     @Override
     public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
         return FileVisitResult.CONTINUE;
-    }
-
-    public void setFlowCondition(AtomicBoolean isRunning) {
-        this.isRunning = isRunning;
     }
 }

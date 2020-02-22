@@ -3,13 +3,15 @@
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
-<Pane prefHeight="86.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-      xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="71.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ru.inspector_files.controller.FolderScanningProcessController">
     <children>
-        <JFXProgressBar layoutX="21.0" layoutY="42.0" prefHeight="3.0" prefWidth="708.0" progress="0.37"/>
-        <Label layoutX="21.0" layoutY="55.0" text="10Gb"/>
-        <Label layoutX="66.0" layoutY="55.0" text="of 100Gb"/>
-        <Label layoutX="695.0" layoutY="55.0" text="10%"/>
-        <Label layoutX="21.0" layoutY="14.0" text="C:\\Program Files (x86)"/>
+        <JFXProgressBar fx:id="scanStatusProgressBar" layoutX="21.0" layoutY="33.0" prefHeight="7.0" prefWidth="708.0"
+                        progress="0.37"/>
+        <Label fx:id="stateInMemoryLabel" layoutX="21.0" layoutY="48.0" text="10Gb of 100Gb"/>
+        <Label fx:id="durationInPercentage" alignment="CENTER_RIGHT" layoutX="682.0" layoutY="48.0" prefHeight="17.0"
+               prefWidth="47.0" text="10%"/>
+        <Label fx:id="folderPathLabel" layoutX="21.0" layoutY="7.0" prefHeight="17.0" prefWidth="708.0"
+               text="C:\\Program Files (x86)"/>
     </children>
 </Pane>

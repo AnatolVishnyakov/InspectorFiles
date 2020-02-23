@@ -3,7 +3,6 @@ package ru.inspector_files.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeView;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,14 +12,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.inspector_files.service.FolderVisitorService;
-import ru.inspector_files.service.FolderVisitorServiceImpl;
 import ru.inspector_files.ui.controls.FolderTreeItem;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -28,15 +26,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ScanSnapshotController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(ScanSnapshotController.class);
     private AtomicBoolean isRunning = new AtomicBoolean(false);
-    private FolderVisitorService service = new FolderVisitorServiceImpl(isRunning);
     @FXML
     private Pane scanSnapshotPane;
     @FXML
     private JFXTreeView<File> folderTree;
     @FXML
-    private JFXButton buttonScan;
-    @FXML
-    public JFXButton buttonStop;
+    public JFXButton buttonScan;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,25 +46,11 @@ public class ScanSnapshotController implements Initializable {
         folderTree.setRoot(root);
         folderTree.setShowRoot(false);
         folderTree.setCellFactory(CheckBoxTreeCell.forTreeView());
-
-        buttonScan.setDisable(false);
-        buttonScan.addEventHandler(ActionEvent.ANY, mouseEvent -> {
-            if (!getSelectedFolders().isEmpty()) {
-                buttonScan.setDisable(true);
-                buttonStop.setDisable(false);
-            }
-        });
-        buttonStop.setDisable(true);
-        buttonStop.addEventHandler(ActionEvent.ANY, mouseEvent -> {
-            buttonScan.setDisable(false);
-            buttonStop.setDisable(true);
-        });
     }
 
     @FXML
     public void onScan() {
         isRunning.set(true);
-        service.walk(getSelectedFolders());
         URL blockScreenLayout = getClass().getResource("/view/snapshot/ProgressScreenLayout.fxml");
         BorderPane parent = (BorderPane) scanSnapshotPane.getParent();
 
@@ -77,17 +58,15 @@ public class ScanSnapshotController implements Initializable {
         loader.setLocation(blockScreenLayout);
         try {
             Pane content = loader.load();
+            content.setUserData(new HashMap<String, Object>() {
+                {
+                    put("isRunning", isRunning);
+                    put("folders", getSelectedFolders());
+                }
+            });
             parent.setCenter(content);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void onStop() {
-        if (isRunning.get()) {
-            logger.info("Процесс сканирования прерван вручную");
-            isRunning.set(false);
         }
     }
 

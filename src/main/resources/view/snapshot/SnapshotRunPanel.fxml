@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import com.jfoenix.controls.JFXTreeView?>
-<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
-<Pane fx:id="scanSnapshotPane" prefHeight="558.0" prefWidth="827.0" styleClass="central-panel" stylesheets="@/css/style.css"
-      xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+<Pane fx:id="scanSnapshotPane" prefHeight="558.0" prefWidth="827.0" styleClass="central-panel"
+      stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="ru.inspector_files.controller.ScanSnapshotController">
     <children>
         <Label layoutX="40.0" layoutY="40.0" text="Снимок системы">
@@ -37,10 +33,8 @@
                               prefWidth="288.0" promptText="Исключая файлы по маске"/>
             </children>
         </Pane>
-        <JFXButton fx:id="buttonScan" layoutX="593.0" layoutY="491.0" onAction="#onScan" prefHeight="53.0"
-                   prefWidth="103.0" ripplerFill="#1c3a51" styleClass="info" text="Пуск"/>
-        <JFXButton fx:id="buttonStop" layoutX="705.0" layoutY="491.0" onAction="#onStop" prefHeight="53.0"
-                   prefWidth="108.0" ripplerFill="#612133" styleClass="error" text="Стоп"/>
+        <JFXButton fx:id="buttonScan" layoutX="636.0" layoutY="488.0" onAction="#onScan" prefHeight="53.0"
+                   prefWidth="177.0" ripplerFill="#1c3a51" styleClass="info" text="Создать снимок"/>
         <Pane layoutX="314.0" layoutY="340.0" prefHeight="173.0" prefWidth="308.0">
             <children>
                 <Label layoutX="15.0" layoutY="14.0" text="Режим сканирования"/>

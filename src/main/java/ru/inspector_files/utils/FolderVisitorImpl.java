@@ -15,11 +15,15 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static ru.inspector_files.utils.FileUtils.byteCountToDisplay;
+
 public class FolderVisitorImpl implements FileVisitor<Path> {
     private DocumentService service = new DocumentServiceImpl();
     private AtomicBoolean isRunning;
-    private long sizeAllDirectory = 0;
+    private long sizeOfFolderCounter = 0;
     private int percentageProcess = 0;
+    private final long sizeOfFolder;
+    private final String sizeFolderLabel;
     private final JFXProgressBar scanStatusProgressBar;
     private final Label folderPathLabel;
     private final Label stateInMemoryLabel;
@@ -31,6 +35,8 @@ public class FolderVisitorImpl implements FileVisitor<Path> {
         this.stateInMemoryLabel = progressComponent.getStateInMemoryLabel();
         this.durationInPercentage = progressComponent.getDurationInPercentage();
         this.scanStatusProgressBar = progressComponent.getScanStatusProgressBar();
+        this.sizeOfFolder = (long) stateInMemoryLabel.getUserData();
+        this.sizeFolderLabel = " of " + byteCountToDisplay(sizeOfFolder);
     }
 
     @Override
@@ -48,12 +54,10 @@ public class FolderVisitorImpl implements FileVisitor<Path> {
             folderPathLabel.setText(file.getAbsolutePath());
         });
         service.create(file);
-        sizeAllDirectory += file.length();
+        sizeOfFolderCounter += file.length();
         InterfaceExecutor.execute(() -> {
-            long size = (long) stateInMemoryLabel.getUserData();
-            String sizeLabel = " of " + size + " bytes";
-            stateInMemoryLabel.setText(sizeAllDirectory + sizeLabel);
-            percentageProcess = (int) ((sizeAllDirectory * 100) / size);
+            stateInMemoryLabel.setText(byteCountToDisplay(sizeOfFolderCounter) + sizeFolderLabel);
+            percentageProcess = (int) ((sizeOfFolderCounter * 100) / sizeOfFolder);
             durationInPercentage.setText(percentageProcess + "%");
             scanStatusProgressBar.setProgress((double) percentageProcess / 100);
         });

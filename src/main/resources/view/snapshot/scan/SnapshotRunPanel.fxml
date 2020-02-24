@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <Pane fx:id="scanSnapshotPane" prefHeight="558.0" prefWidth="827.0" styleClass="central-panel"
       stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ru.inspector_files.controller.snapshot.ScanSnapshotController">
+      fx:controller="ru.inspector_files.controller.snapshot.ScanController">
     <children>
         <Label layoutX="40.0" layoutY="40.0" text="Снимок системы">
             <font>

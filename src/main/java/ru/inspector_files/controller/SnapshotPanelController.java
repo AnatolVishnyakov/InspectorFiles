@@ -6,23 +6,23 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SnapshotController extends AbstractController implements Initializable {
+public class SnapshotPanelController extends AbstractController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        URL snapshotCommonPanel = getClass().getResource("/view/snapshot/SnapshotCommonPanel.fxml");
+        URL snapshotCommonPanel = getClass().getResource("/view/snapshot/equals/SnapshotCommonPanel.fxml");
         setContentPanel(snapshotCommonPanel);
         onSnapshotButtonClick();
     }
 
     @FXML
     public void onSnapshotButtonClick() {
-        URL snapshotRunPanel = getClass().getResource("/view/snapshot/SnapshotRunPanel.fxml");
+        URL snapshotRunPanel = getClass().getResource("/view/snapshot/scan/SnapshotRunPanel.fxml");
         setContentPanel(snapshotRunPanel);
     }
 
     @FXML
     public void onEqualsSnapshotButton() {
-        URL snapshotRunPanel = getClass().getResource("/view/snapshot/SnapshotEqualsPanel.fxml");
+        URL snapshotRunPanel = getClass().getResource("/view/snapshot/equals/SnapshotEqualsPanel.fxml");
         setContentPanel(snapshotRunPanel);
     }
 }

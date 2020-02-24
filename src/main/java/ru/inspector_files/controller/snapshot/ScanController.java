@@ -23,8 +23,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ScanSnapshotController implements Initializable {
-    private static final Logger logger = LoggerFactory.getLogger(ScanSnapshotController.class);
+public class ScanController implements Initializable {
+    private static final Logger logger = LoggerFactory.getLogger(ScanController.class);
     private AtomicBoolean isRunning = new AtomicBoolean(false);
     @FXML
     private Pane scanSnapshotPane;
@@ -51,7 +51,7 @@ public class ScanSnapshotController implements Initializable {
     @FXML
     public void onScan() {
         isRunning.set(true);
-        URL blockScreenLayout = getClass().getResource("/view/snapshot/ProgressScreenLayout.fxml");
+        URL blockScreenLayout = getClass().getResource("/view/snapshot/scan/ProgressScreenLayout.fxml");
         BorderPane parent = (BorderPane) scanSnapshotPane.getParent();
 
         FXMLLoader loader = new FXMLLoader();

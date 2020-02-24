@@ -20,8 +20,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static ru.inspector_files.utils.FileUtils.byteCountToDisplay;
 
-public class FolderScanningProcessController implements Initializable {
-    private static final Logger logger = LoggerFactory.getLogger(FolderScanningProcessController.class);
+public class ProcessController implements Initializable {
+    private static final Logger logger = LoggerFactory.getLogger(ProcessController.class);
     private final File scanFolder;
     @FXML
     public JFXProgressBar scanStatusProgressBar;
@@ -32,7 +32,7 @@ public class FolderScanningProcessController implements Initializable {
     @FXML
     public Label folderPathLabel;
 
-    public FolderScanningProcessController(File scanFolder) {
+    public ProcessController(File scanFolder) {
         this.scanFolder = scanFolder;
     }
 

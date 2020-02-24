@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import ru.inspector_files.controller.snapshot.FolderScanningProcessController;
+import ru.inspector_files.controller.snapshot.ProcessController;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +29,9 @@ public class ProgressBarApplication extends Application {
         try {
             // Загружаем корневой макет из fxml файла
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/snapshot/FolderScanProgressComponent.fxml"));
+            loader.setLocation(getClass().getResource("/view/snapshot/scan/FolderScanProgressComponent.fxml"));
             loader.setControllerFactory(param -> {
-                Callable<?> controllerCallable = (Callable<FolderScanningProcessController>) () -> new FolderScanningProcessController(new File("C:\\Program Files (x86)"));
+                Callable<?> controllerCallable = (Callable<ProcessController>) () -> new ProcessController(new File("C:\\Program Files (x86)"));
                 try {
                     return controllerCallable.call();
                 } catch (Exception ex) {

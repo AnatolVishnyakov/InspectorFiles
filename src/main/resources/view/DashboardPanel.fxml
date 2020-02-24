@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <Pane prefHeight="558.0" prefWidth="1080.0" styleClass="window-root" stylesheets="@../css/style.css"
       xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ru.inspector_files.controller.DashboardController">
+      fx:controller="ru.inspector_files.controller.DashboardPanelController">
     <Pane layoutY="329.0" prefHeight="229.0" prefWidth="253.0" styleClass="storage-pane"
           stylesheets="@../css/style.css">
         <children>

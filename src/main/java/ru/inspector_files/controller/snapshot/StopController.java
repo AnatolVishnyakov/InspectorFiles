@@ -19,8 +19,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ScanProcessController implements Initializable {
-    private static final Logger logger = LoggerFactory.getLogger(ScanProcessController.class);
+public class StopController implements Initializable {
+    private static final Logger logger = LoggerFactory.getLogger(StopController.class);
     private static final int CAPACITY_QUEUE = 4;
     @FXML
     public VBox indicatorScanFolder;
@@ -52,9 +52,9 @@ public class ScanProcessController implements Initializable {
                     while (!queue.isEmpty()) {
                         File file = queue.take();
                         Executors.newSingleThreadExecutor().execute(() -> {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/snapshot/FolderScanProgressComponent.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/snapshot/scan/FolderScanProgressComponent.fxml"));
                             loader.setControllerFactory(param -> {
-                                Callable<?> controllerCallable = (Callable<FolderScanningProcessController>) () -> new FolderScanningProcessController(file);
+                                Callable<?> controllerCallable = (Callable<ProcessController>) () -> new ProcessController(file);
                                 try {
                                     return controllerCallable.call();
                                 } catch (Exception ex) {
@@ -84,7 +84,7 @@ public class ScanProcessController implements Initializable {
     public void onStop() {
         AtomicBoolean isRunning = (AtomicBoolean) context.get("isRunning");
         isRunning.set(false);
-        URL snapshotRunPanel = getClass().getResource("/view/snapshot/SnapshotRunPanel.fxml");
+        URL snapshotRunPanel = getClass().getResource("/view/snapshot/scan/SnapshotRunPanel.fxml");
         BorderPane parent = (BorderPane) scanProcessPane.getParent();
 
         FXMLLoader loader = new FXMLLoader();

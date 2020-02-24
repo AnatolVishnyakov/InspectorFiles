@@ -25,13 +25,13 @@ public class RootController extends AbstractController implements Initializable 
 
     @FXML
     public void onDashboardButtonClick() {
-        URL dashboardLayout = getClass().getResource("/view/DashboardLayout.fxml");
+        URL dashboardLayout = getClass().getResource("/view/DashboardPanel.fxml");
         setContentPanel(dashboardLayout);
     }
 
     @FXML
     public void onRevisorButtonClick() {
-        URL snapshotLayout = getClass().getResource("/view/SnapshotLayout.fxml");
+        URL snapshotLayout = getClass().getResource("/view/SnapshotPanel.fxml");
         setContentPanel(snapshotLayout);
     }
 }

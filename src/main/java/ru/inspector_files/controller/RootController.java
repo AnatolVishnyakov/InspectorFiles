@@ -20,17 +20,17 @@ public class RootController extends AbstractController implements Initializable 
     public void initialize(URL location, ResourceBundle resources) {
         buttonClose.addEventHandler(ActionEvent.ANY, mouseEvent -> Platform.exit());
         buttonMinimize.addEventHandler(ActionEvent.ANY, mouseEvent -> ((Stage) buttonMinimize.getScene().getWindow()).setIconified(true));
-        onDashboardButtonClick(new ActionEvent());
+        onRevisorButtonClick();
     }
 
     @FXML
-    public void onDashboardButtonClick(ActionEvent actionEvent) {
+    public void onDashboardButtonClick() {
         URL dashboardLayout = getClass().getResource("/view/DashboardLayout.fxml");
         setContentPanel(dashboardLayout);
     }
 
     @FXML
-    public void onRevisorButtonClick(ActionEvent actionEvent) {
+    public void onRevisorButtonClick() {
         URL snapshotLayout = getClass().getResource("/view/SnapshotLayout.fxml");
         setContentPanel(snapshotLayout);
     }

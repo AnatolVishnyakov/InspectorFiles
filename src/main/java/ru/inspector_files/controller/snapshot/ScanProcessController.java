@@ -1,4 +1,4 @@
-package ru.inspector_files.controller;
+package ru.inspector_files.controller.snapshot;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,10 +50,11 @@ public class ScanProcessController implements Initializable {
                     logger.info("Добавление директории '{}' в очередь на сканирование", folder.getAbsolutePath());
                     queue.put(folder);
                     while (!queue.isEmpty()) {
+                        File file = queue.take();
                         Executors.newSingleThreadExecutor().execute(() -> {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/snapshot/FolderScanProgressComponent.fxml"));
                             loader.setControllerFactory(param -> {
-                                Callable<?> controllerCallable = (Callable<FolderScanningProcessController>) () -> new FolderScanningProcessController(queue.take());
+                                Callable<?> controllerCallable = (Callable<FolderScanningProcessController>) () -> new FolderScanningProcessController(file);
                                 try {
                                     return controllerCallable.call();
                                 } catch (Exception ex) {

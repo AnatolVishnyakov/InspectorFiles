@@ -1,4 +1,4 @@
-package ru.inspector_files.controller;
+package ru.inspector_files.controller.snapshot;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeView;

@@ -27,6 +27,7 @@ public class ProcessController implements Initializable {
     public Label stateInMemoryLabel;
     @FXML
     public Label durationInPercentage;
+    private Service<Boolean> service;
 
     public ProcessController(File folder) {
         this.folder = folder;
@@ -43,7 +44,7 @@ public class ProcessController implements Initializable {
             }
         });
 
-        Service<Boolean> service = new FolderVisitorService(folder);
+        service = new FolderVisitorService(folder);
         service.start();
         InterfaceExecutor.execute(() -> {
             folderPath.textProperty().bind(service.titleProperty());
@@ -56,5 +57,9 @@ public class ProcessController implements Initializable {
             );
             durationInPercentage.visibleProperty().bind(service.progressProperty().isNotEqualTo(-1));
         });
+    }
+
+    public Service<Boolean> getService() {
+        return service;
     }
 }

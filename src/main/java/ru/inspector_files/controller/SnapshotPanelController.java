@@ -1,5 +1,6 @@
 package ru.inspector_files.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -7,6 +8,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SnapshotPanelController extends AbstractController implements Initializable {
+    @FXML
+    public JFXButton snapshotButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         URL snapshotCommonPanel = getClass().getResource("/view/snapshot/equals/SnapshotCommonPanel.fxml");

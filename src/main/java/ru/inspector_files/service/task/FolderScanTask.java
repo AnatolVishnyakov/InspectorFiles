@@ -19,12 +19,14 @@ public class FolderScanTask extends Task<Boolean> {
 
     public FolderScanTask(File folder) {
         this.folder = folder;
+        this.updateTitle(folder.getAbsolutePath());
     }
 
     @Override
     protected Boolean call() {
         logger.info("Идет сканирование каталога: {}", folder.getAbsolutePath());
         try {
+            super.updateMessage("Идёт вычисление размера директории");
             allFolderSize = FileUtils.sizeOfDirectory(folder);
             FolderVisitorImpl visitor = new FolderVisitorImpl(this);
             Files.walkFileTree(folder.toPath(), visitor);

@@ -22,6 +22,13 @@ public class FolderVisitorImpl implements FileVisitor<Path> {
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
         task.updateFolderPath(dir.toFile().getAbsolutePath());
+        return checkStateIsActive();
+    }
+
+    private FileVisitResult checkStateIsActive() {
+        if (task.isCancelled()) {
+            return FileVisitResult.TERMINATE;
+        }
         return FileVisitResult.CONTINUE;
     }
 
@@ -31,17 +38,17 @@ public class FolderVisitorImpl implements FileVisitor<Path> {
         service.create(file);
         task.updateScanProgress(file.length());
         task.updateStateInMemory();
-        return FileVisitResult.CONTINUE;
+        return checkStateIsActive();
     }
 
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
         exc.printStackTrace();
-        return FileVisitResult.CONTINUE;
+        return checkStateIsActive();
     }
 
     @Override
     public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-        return FileVisitResult.CONTINUE;
+        return checkStateIsActive();
     }
 }

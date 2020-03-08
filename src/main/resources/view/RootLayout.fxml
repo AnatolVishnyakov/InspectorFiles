@@ -18,7 +18,7 @@
                             <Font size="14.0" />
                         </font>
                     </JFXButton>
-                    <JFXButton id="revisorButton" mnemonicParsing="false" onAction="#onRevisorButtonClick" prefHeight="59.0" prefWidth="164.0" text="Ревизор">
+                    <JFXButton id="revisorButton" mnemonicParsing="false" onAction="#onSnapshotPanel" prefHeight="59.0" prefWidth="164.0" text="Ревизор">
                         <font>
                             <Font size="14.0" />
                         </font>

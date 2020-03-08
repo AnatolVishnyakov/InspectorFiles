@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class FolderProcessController implements Initializable, PanelContent {
+public class FolderProcessController implements Initializable, DataController {
     private static final Logger logger = LoggerFactory.getLogger(FolderProcessController.class);
     private static final int CAPACITY_QUEUE = 4;
     @FXML
@@ -80,7 +80,7 @@ public class FolderProcessController implements Initializable, PanelContent {
     @FXML
     public void onStop() {
         services.forEach(Service::cancel);
-        context.clear();
+//        context.clear();
         URL snapshotRunPanel = getClass().getResource("/view/snapshot/scan/FolderSnapshotScreen.fxml");
         BorderPane parent = (BorderPane) snapshotPane.getParent();
 

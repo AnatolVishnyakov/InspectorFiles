@@ -20,10 +20,13 @@ import ru.inspector_files.ui.controls.FolderTree;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-public class FolderSnapshotController implements Initializable, PanelContent {
+public class FolderSnapshotController implements Initializable, DataController {
     private static final Logger logger = LoggerFactory.getLogger(FolderSnapshotController.class);
     private static Parent screenParent;
     @FXML

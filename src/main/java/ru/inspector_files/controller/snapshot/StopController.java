@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.inspector_files.controller.snapshot.mediator.SnapshotMediator;
 import ru.inspector_files.ui.InterfaceExecutor;
 
 import java.io.File;
@@ -53,7 +54,7 @@ public class StopController implements Initializable {
                     while (!queue.isEmpty()) {
                         File file = queue.take();
                         Executors.newSingleThreadExecutor().execute(() -> {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/snapshot/scan/FolderScanProgressComponent.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/snapshot/scan/FolderProcessScreen.fxml"));
                             loader.setControllerFactory(param -> {
                                 Callable<?> controllerCallable = (Callable<ProcessController>) () -> {
                                     ProcessController processController = new ProcessController(file);

@@ -54,7 +54,7 @@ public class FolderSnapshotController extends AbstractController implements Init
     @FXML
     public void onScan() {
         screenParent = snapshotPane.getParent();
-        screenParent.setUserData(getSelectedFolders());
+        setUserData(screenParent, getSelectedFolders());
         setPanel("/view/snapshot/scan/FolderProcessComponent.fxml");
     }
 
@@ -69,5 +69,10 @@ public class FolderSnapshotController extends AbstractController implements Init
     @Override
     public Object getUserData() {
         return screenParent.getUserData();
+    }
+
+    @Override
+    public void setUserData(Parent panel, Object userData) {
+        panel.setUserData(getSelectedFolders());
     }
 }

@@ -4,6 +4,7 @@ import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
@@ -19,13 +20,12 @@ import java.util.concurrent.*;
 
 public class FolderProcessController extends AbstractController implements Initializable, ScreenData {
     private static final Logger logger = LoggerFactory.getLogger(FolderProcessController.class);
-    private static final int CAPACITY_QUEUE = 4;
+    private static final int CAPACITY_QUEUE = 16;
     @FXML
     public VBox indicatorScanFolder;
     @FXML
     private Pane snapshotPane;
     private BlockingQueue<File> queue = new ArrayBlockingQueue<>(CAPACITY_QUEUE);
-    private Map<String, Object> context;
     private List<Service<Boolean>> services = new ArrayList<>();
 
     @Override
@@ -85,5 +85,9 @@ public class FolderProcessController extends AbstractController implements Initi
     @Override
     public Object getUserData() {
         return snapshotPane.getUserData();
+    }
+
+    @Override
+    public void setUserData(Parent panel, Object userData) {
     }
 }

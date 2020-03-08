@@ -54,7 +54,7 @@ public class FolderSnapshotController implements Initializable {
 
     @FXML
     public void onScan() {
-        URL blockScreenLayout = getClass().getResource("/view/snapshot/scan/ProgressScreenLayout.fxml");
+        URL blockScreenLayout = getClass().getResource("/view/snapshot/scan/FolderProcessComponent.fxml");
         BorderPane parent = (BorderPane) scanSnapshotPane.getParent();
 
         FXMLLoader loader = new FXMLLoader();

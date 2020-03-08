@@ -4,21 +4,17 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeView;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.CheckBoxTreeCell;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.inspector_files.controller.snapshot.mediator.SnapshotMediator;
 import ru.inspector_files.ui.controls.FolderTree;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,11 +22,9 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class FolderSnapshotController implements Initializable, DataController {
+public class FolderSnapshotController extends AbstractController implements Initializable, DataController {
     private static final Logger logger = LoggerFactory.getLogger(FolderSnapshotController.class);
     private static Parent screenParent;
-    @FXML
-    private Pane snapshotPane;
     @FXML
     private JFXTreeView<File> folderTree;
     @FXML
@@ -61,17 +55,7 @@ public class FolderSnapshotController implements Initializable, DataController {
     public void onScan() {
         screenParent = snapshotPane.getParent();
         screenParent.setUserData(getSelectedFolders());
-        URL blockScreenLayout = getClass().getResource("/view/snapshot/scan/FolderProcessComponent.fxml");
-        BorderPane parent = (BorderPane) snapshotPane.getParent();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(blockScreenLayout);
-        try {
-            Pane content = loader.load();
-            parent.setCenter(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setPanel("/view/snapshot/scan/FolderProcessComponent.fxml");
     }
 
     private Set<File> getSelectedFolders() {

@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class FolderProcessController implements Initializable, DataController {
+public class FolderProcessController extends AbstractController implements Initializable, DataController {
     private static final Logger logger = LoggerFactory.getLogger(FolderProcessController.class);
     private static final int CAPACITY_QUEUE = 4;
     @FXML
@@ -80,18 +80,7 @@ public class FolderProcessController implements Initializable, DataController {
     @FXML
     public void onStop() {
         services.forEach(Service::cancel);
-//        context.clear();
-        URL snapshotRunPanel = getClass().getResource("/view/snapshot/scan/FolderSnapshotScreen.fxml");
-        BorderPane parent = (BorderPane) snapshotPane.getParent();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(snapshotRunPanel);
-        try {
-            Pane content = loader.load();
-            parent.setCenter(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setPanel("/view/snapshot/scan/FolderSnapshotScreen.fxml");
     }
 
     @Override

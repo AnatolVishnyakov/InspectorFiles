@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class FolderSnapshotController extends AbstractController implements Initializable, DataController {
+public class FolderSnapshotController extends AbstractController implements Initializable, ScreenData {
     private static final Logger logger = LoggerFactory.getLogger(FolderSnapshotController.class);
     private static Parent screenParent;
     @FXML

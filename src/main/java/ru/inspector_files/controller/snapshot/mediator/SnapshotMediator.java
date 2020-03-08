@@ -3,7 +3,7 @@ package ru.inspector_files.controller.snapshot.mediator;
 import ru.inspector_files.controller.snapshot.FolderProcessComponentController;
 import ru.inspector_files.controller.snapshot.FolderProcessController;
 import ru.inspector_files.controller.snapshot.FolderSnapshotController;
-import ru.inspector_files.controller.snapshot.DataController;
+import ru.inspector_files.controller.snapshot.ScreenData;
 
 public class SnapshotMediator implements SnapshotMediateControllers {
     private FolderSnapshotController folderSnapshotController;
@@ -37,7 +37,7 @@ public class SnapshotMediator implements SnapshotMediateControllers {
     }
 
     @Override
-    public <T extends DataController> Object getUserData(Class<T> clazz) {
+    public <T extends ScreenData> Object getUserData(Class<T> clazz) {
         if (clazz.isInstance(folderSnapshotController)) {
             return folderSnapshotController.getUserData();
         } else if (clazz.isInstance(folderProcessController)) {

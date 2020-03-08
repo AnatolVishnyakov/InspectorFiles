@@ -4,7 +4,6 @@ import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
@@ -18,7 +17,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class FolderProcessController extends AbstractController implements Initializable, DataController {
+public class FolderProcessController extends AbstractController implements Initializable, ScreenData {
     private static final Logger logger = LoggerFactory.getLogger(FolderProcessController.class);
     private static final int CAPACITY_QUEUE = 4;
     @FXML

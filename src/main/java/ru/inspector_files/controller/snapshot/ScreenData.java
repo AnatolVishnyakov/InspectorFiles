@@ -1,5 +1,5 @@
 package ru.inspector_files.controller.snapshot;
 
-public interface DataController {
+public interface ScreenData {
     Object getUserData();
 }

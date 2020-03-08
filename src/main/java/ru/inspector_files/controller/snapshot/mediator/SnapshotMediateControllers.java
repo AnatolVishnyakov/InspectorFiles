@@ -3,7 +3,7 @@ package ru.inspector_files.controller.snapshot.mediator;
 import ru.inspector_files.controller.snapshot.FolderProcessComponentController;
 import ru.inspector_files.controller.snapshot.FolderProcessController;
 import ru.inspector_files.controller.snapshot.FolderSnapshotController;
-import ru.inspector_files.controller.snapshot.DataController;
+import ru.inspector_files.controller.snapshot.ScreenData;
 
 public interface SnapshotMediateControllers {
     void registerScanController(FolderSnapshotController folderSnapshotController);
@@ -12,5 +12,5 @@ public interface SnapshotMediateControllers {
 
     void registerStopController(FolderProcessController folderProcessController);
 
-    <T extends DataController> Object getUserData(Class<T> clazz);
+    <T extends ScreenData> Object getUserData(Class<T> clazz);
 }

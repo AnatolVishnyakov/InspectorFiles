@@ -33,6 +33,7 @@ public class StopController implements Initializable {
     @SuppressWarnings("unchecked")
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("Инициализация контроллера {}", getClass());
+        SnapshotMediator.getInstance().registerStopController(this);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             boolean isGetContext = false;

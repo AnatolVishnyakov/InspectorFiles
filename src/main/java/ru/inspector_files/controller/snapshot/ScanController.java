@@ -36,6 +36,7 @@ public class ScanController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("Инициализация контроллера {}", getClass());
+        SnapshotMediator.getInstance().registerScanController(this);
         File[] localDisks = File.listRoots();
 
         TreeItem<File> root = new TreeItem<>();

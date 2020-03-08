@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class FolderProcessController implements Initializable {
+public class FolderProcessController implements Initializable, PanelContent {
     private static final Logger logger = LoggerFactory.getLogger(FolderProcessController.class);
     private static final int CAPACITY_QUEUE = 4;
     @FXML
@@ -36,16 +36,7 @@ public class FolderProcessController implements Initializable {
         SnapshotMediator.getInstance().registerStopController(this);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
-            boolean isGetContext = false;
-            while (!isGetContext) {
-                context = (Map<String, Object>) snapshotPane.getUserData();
-                if (context != null) {
-                    isGetContext = true;
-                }
-            }
-
-            logger.info("Получили контекст");
-            HashSet<File> folders = (HashSet<File>) context.get("folders");
+            HashSet<File> folders = (HashSet<File>) SnapshotMediator.getInstance().getUserData(FolderSnapshotController.class);
             folders.forEach(folder -> {
                 try {
                     logger.info("Добавление директории '{}' в очередь на сканирование", folder.getAbsolutePath());
@@ -101,5 +92,10 @@ public class FolderProcessController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Object getUserData() {
+        return snapshotPane.getUserData();
     }
 }

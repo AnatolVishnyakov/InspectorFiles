@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.CheckBoxTreeCell;
@@ -22,8 +23,9 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FolderSnapshotController implements Initializable {
+public class FolderSnapshotController implements Initializable, PanelContent {
     private static final Logger logger = LoggerFactory.getLogger(FolderSnapshotController.class);
+    private static Parent screenParent;
     @FXML
     private Pane snapshotPane;
     @FXML
@@ -54,6 +56,8 @@ public class FolderSnapshotController implements Initializable {
 
     @FXML
     public void onScan() {
+        screenParent = snapshotPane.getParent();
+        screenParent.setUserData(getSelectedFolders());
         URL blockScreenLayout = getClass().getResource("/view/snapshot/scan/FolderProcessComponent.fxml");
         BorderPane parent = (BorderPane) snapshotPane.getParent();
 
@@ -61,11 +65,6 @@ public class FolderSnapshotController implements Initializable {
         loader.setLocation(blockScreenLayout);
         try {
             Pane content = loader.load();
-            content.setUserData(new HashMap<String, Object>() {
-                {
-                    put("folders", getSelectedFolders());
-                }
-            });
             parent.setCenter(content);
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,5 +77,10 @@ public class FolderSnapshotController implements Initializable {
                 .map(diskItem -> FolderTree.getSelectedFolders())
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Object getUserData() {
+        return screenParent.getUserData();
     }
 }

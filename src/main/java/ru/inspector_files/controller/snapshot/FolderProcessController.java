@@ -24,7 +24,7 @@ public class FolderProcessController implements Initializable {
     @FXML
     public VBox indicatorScanFolder;
     @FXML
-    private Pane scanProcessPane;
+    private Pane snapshotPane;
     private BlockingQueue<File> queue = new ArrayBlockingQueue<>(CAPACITY_QUEUE);
     private Map<String, Object> context;
     private List<Service<Boolean>> services = new ArrayList<>();
@@ -38,7 +38,7 @@ public class FolderProcessController implements Initializable {
         executorService.execute(() -> {
             boolean isGetContext = false;
             while (!isGetContext) {
-                context = (Map<String, Object>) scanProcessPane.getUserData();
+                context = (Map<String, Object>) snapshotPane.getUserData();
                 if (context != null) {
                     isGetContext = true;
                 }
@@ -91,7 +91,7 @@ public class FolderProcessController implements Initializable {
         services.forEach(Service::cancel);
         context.clear();
         URL snapshotRunPanel = getClass().getResource("/view/snapshot/scan/FolderSnapshotScreen.fxml");
-        BorderPane parent = (BorderPane) scanProcessPane.getParent();
+        BorderPane parent = (BorderPane) snapshotPane.getParent();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(snapshotRunPanel);

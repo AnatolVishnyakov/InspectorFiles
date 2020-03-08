@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class FolderSnapshotController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(FolderSnapshotController.class);
     @FXML
-    private Pane scanSnapshotPane;
+    private Pane snapshotPane;
     @FXML
     private JFXTreeView<File> folderTree;
     @FXML
@@ -55,7 +55,7 @@ public class FolderSnapshotController implements Initializable {
     @FXML
     public void onScan() {
         URL blockScreenLayout = getClass().getResource("/view/snapshot/scan/FolderProcessComponent.fxml");
-        BorderPane parent = (BorderPane) scanSnapshotPane.getParent();
+        BorderPane parent = (BorderPane) snapshotPane.getParent();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(blockScreenLayout);

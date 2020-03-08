@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<Pane fx:id="scanSnapshotPane" prefHeight="558.0" prefWidth="827.0" styleClass="central-panel"
+<Pane fx:id="snapshotPane" prefHeight="558.0" prefWidth="827.0" styleClass="central-panel"
       stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="ru.inspector_files.controller.snapshot.FolderSnapshotController">
     <children>

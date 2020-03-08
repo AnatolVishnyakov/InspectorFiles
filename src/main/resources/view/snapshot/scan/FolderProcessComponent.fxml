@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <Pane fx:id="scanProcessPane" opacity="0.5" prefHeight="558.0" prefWidth="827.0" styleClass="central-panel"
       stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ru.inspector_files.controller.snapshot.StopController">
+      fx:controller="ru.inspector_files.controller.snapshot.FolderProcessController">
     <children>
         <Label layoutX="23.0" layoutY="14.0" prefHeight="37.0" prefWidth="206.0" text="Состояние сканирования"/>
         <Separator layoutX="24.0" layoutY="60.0" prefHeight="3.0" prefWidth="760.0"/>

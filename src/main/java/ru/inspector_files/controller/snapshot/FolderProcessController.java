@@ -17,10 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class StopController implements Initializable {
-    private static final Logger logger = LoggerFactory.getLogger(StopController.class);
+public class FolderProcessController implements Initializable {
+    private static final Logger logger = LoggerFactory.getLogger(FolderProcessController.class);
     private static final int CAPACITY_QUEUE = 4;
     @FXML
     public VBox indicatorScanFolder;
@@ -56,9 +55,9 @@ public class StopController implements Initializable {
                         Executors.newSingleThreadExecutor().execute(() -> {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/snapshot/scan/FolderProcessScreen.fxml"));
                             loader.setControllerFactory(param -> {
-                                Callable<?> controllerCallable = (Callable<ProcessController>) () -> {
-                                    ProcessController processController = new ProcessController(file);
-                                    return processController;
+                                Callable<?> controllerCallable = (Callable<FolderProcessComponentController>) () -> {
+                                    FolderProcessComponentController folderProcessComponentController = new FolderProcessComponentController(file);
+                                    return folderProcessComponentController;
                                 };
                                 try {
                                     return controllerCallable.call();
@@ -69,7 +68,7 @@ public class StopController implements Initializable {
 
                             try {
                                 Pane folderProcessPane = loader.load();
-                                ProcessController controller = loader.getController();
+                                FolderProcessComponentController controller = loader.getController();
                                 services.add(controller.getService());
                                 InterfaceExecutor.execute(() -> {
                                     folderProcessPane.setId(folder.getAbsolutePath());
@@ -89,11 +88,9 @@ public class StopController implements Initializable {
 
     @FXML
     public void onStop() {
-        AtomicBoolean isRunning = (AtomicBoolean) context.get("isRunning");
-        isRunning.set(false);
         services.forEach(Service::cancel);
         context.clear();
-        URL snapshotRunPanel = getClass().getResource("/view/snapshot/scan/SnapshotRunPanel.fxml");
+        URL snapshotRunPanel = getClass().getResource("/view/snapshot/scan/FolderSnapshotScreen.fxml");
         BorderPane parent = (BorderPane) scanProcessPane.getParent();
 
         FXMLLoader loader = new FXMLLoader();

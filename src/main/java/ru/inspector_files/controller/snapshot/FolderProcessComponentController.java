@@ -17,8 +17,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProcessController implements Initializable {
-    private static final Logger logger = LoggerFactory.getLogger(ProcessController.class);
+public class FolderProcessComponentController implements Initializable {
+    private static final Logger logger = LoggerFactory.getLogger(FolderProcessComponentController.class);
     private final File folder;
     @FXML
     public Label folderPath;
@@ -30,7 +30,7 @@ public class ProcessController implements Initializable {
     public Label durationInPercentage;
     private Service<Boolean> service;
 
-    public ProcessController(File folder) {
+    public FolderProcessComponentController(File folder) {
         this.folder = folder;
     }
 

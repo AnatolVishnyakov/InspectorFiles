@@ -1,13 +1,13 @@
 package ru.inspector_files.controller.snapshot.mediator;
 
+import ru.inspector_files.controller.snapshot.FolderProcessController;
 import ru.inspector_files.controller.snapshot.FolderSnapshotController;
-import ru.inspector_files.controller.snapshot.ProcessController;
-import ru.inspector_files.controller.snapshot.StopController;
+import ru.inspector_files.controller.snapshot.FolderProcessComponentController;
 
 public class SnapshotMediator implements SnapshotMediateControllers {
     private FolderSnapshotController folderSnapshotController;
-    private ProcessController processController;
-    private StopController stopController;
+    private FolderProcessComponentController folderProcessComponentController;
+    private FolderProcessController folderProcessController;
 
     private SnapshotMediator() {
     }
@@ -26,12 +26,12 @@ public class SnapshotMediator implements SnapshotMediateControllers {
     }
 
     @Override
-    public void registerProcessController(ProcessController processController) {
-        this.processController = processController;
+    public void registerProcessController(FolderProcessComponentController folderProcessComponentController) {
+        this.folderProcessComponentController = folderProcessComponentController;
     }
 
     @Override
-    public void registerStopController(StopController stopController) {
-        this.stopController = stopController;
+    public void registerStopController(FolderProcessController folderProcessController) {
+        this.folderProcessController = folderProcessController;
     }
 }

@@ -1,11 +1,11 @@
 package ru.inspector_files.controller.snapshot.mediator;
 
+import ru.inspector_files.controller.snapshot.FolderSnapshotController;
 import ru.inspector_files.controller.snapshot.ProcessController;
-import ru.inspector_files.controller.snapshot.ScanController;
 import ru.inspector_files.controller.snapshot.StopController;
 
 public class SnapshotMediator implements SnapshotMediateControllers {
-    private ScanController scanController;
+    private FolderSnapshotController folderSnapshotController;
     private ProcessController processController;
     private StopController stopController;
 
@@ -21,8 +21,8 @@ public class SnapshotMediator implements SnapshotMediateControllers {
     }
 
     @Override
-    public void registerScanController(ScanController scanController) {
-        this.scanController = scanController;
+    public void registerScanController(FolderSnapshotController folderSnapshotController) {
+        this.folderSnapshotController = folderSnapshotController;
     }
 
     @Override

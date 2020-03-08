@@ -22,8 +22,8 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ScanController implements Initializable {
-    private static final Logger logger = LoggerFactory.getLogger(ScanController.class);
+public class FolderSnapshotController implements Initializable {
+    private static final Logger logger = LoggerFactory.getLogger(FolderSnapshotController.class);
     @FXML
     private Pane scanSnapshotPane;
     @FXML

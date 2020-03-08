@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SnapshotPanelController extends AbstractController implements Initializable {
+public class SnapshotPanelController extends RootController implements Initializable {
     @FXML
     public JFXButton snapshotButton;
 

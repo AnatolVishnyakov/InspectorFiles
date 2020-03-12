@@ -2,6 +2,7 @@ package ru.inspector_files.ui.controls;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TreeItem;
 import org.slf4j.Logger;
@@ -9,13 +10,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class FolderTree extends CheckBoxTreeItem<File> {
     private static final Logger logger = LoggerFactory.getLogger("logger.debug");
     private static final File[] EMPTY_ARRAY = {};
-    private static final Set<File> selectedFolders = new HashSet<>();
+    private static final ObservableSet<File> selectedFolders = FXCollections.observableSet();
 
     public FolderTree(File file) {
         super(new File(file.getAbsolutePath()) {
@@ -91,7 +90,7 @@ public class FolderTree extends CheckBoxTreeItem<File> {
         return EMPTY_ARRAY;
     }
 
-    public static Set<File> getSelectedFolders() {
+    public static ObservableSet<File> getSelectedFolders() {
         return selectedFolders;
     }
 }

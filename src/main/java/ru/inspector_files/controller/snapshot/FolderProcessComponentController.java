@@ -9,7 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.inspector_files.controller.snapshot.mediator.SnapshotMediator;
 import ru.inspector_files.service.FolderVisitorService;
 import ru.inspector_files.ui.InterfaceExecutor;
 
@@ -37,7 +36,6 @@ public class FolderProcessComponentController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("Инициализация контроллера {}", getClass());
-        SnapshotMediator.getInstance().registerProcessController(this);
         progress.progressProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() == 1) {
                 Pane currentLayout = (Pane) progress.getParent();

@@ -4,90 +4,68 @@ import javafx.concurrent.Service;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.inspector_files.controller.snapshot.mediator.SnapshotMediator;
 import ru.inspector_files.ui.InterfaceExecutor;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
 
-public class FolderProcessController extends AbstractController implements Initializable, ScreenData {
+public class FolderProcessController extends AbstractController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(FolderProcessController.class);
-    private static final int CAPACITY_QUEUE = 16;
+    private final List<Service<Boolean>> services = new ArrayList<>();
     @FXML
-    public VBox indicatorScanFolder;
-    @FXML
-    private Pane snapshotPane;
-    private BlockingQueue<File> queue = new ArrayBlockingQueue<>(CAPACITY_QUEUE);
-    private List<Service<Boolean>> services = new ArrayList<>();
+    public VBox indicatorFolder;
 
     @Override
     @SuppressWarnings("unchecked")
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("Инициализация контроллера {}", getClass());
-        SnapshotMediator.getInstance().registerStopController(this);
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> {
-            HashSet<File> folders = (HashSet<File>) SnapshotMediator.getInstance().getUserData(FolderSnapshotController.class);
-            folders.forEach(folder -> {
-                try {
-                    logger.info("Добавление директории '{}' в очередь на сканирование", folder.getAbsolutePath());
-                    queue.put(folder);
-                    while (!queue.isEmpty()) {
-                        File file = queue.take();
-                        Executors.newSingleThreadExecutor().execute(() -> {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/snapshot/scan/FolderProcessScreen.fxml"));
-                            loader.setControllerFactory(param -> {
-                                Callable<?> controllerCallable = (Callable<FolderProcessComponentController>) () -> {
-                                    FolderProcessComponentController folderProcessComponentController = new FolderProcessComponentController(file);
-                                    return folderProcessComponentController;
-                                };
-                                try {
-                                    return controllerCallable.call();
-                                } catch (Exception ex) {
-                                    throw new IllegalStateException(ex);
-                                }
-                            });
+        HashSet<File> folders = (HashSet<File>) this.getUserData();
+        folders.forEach(this::newFolderProcessHandler);
+    }
 
-                            try {
-                                Pane folderProcessPane = loader.load();
-                                FolderProcessComponentController controller = loader.getController();
-                                services.add(controller.getService());
-                                InterfaceExecutor.execute(() -> {
-                                    folderProcessPane.setId(folder.getAbsolutePath());
-                                    indicatorScanFolder.getChildren().add(folderProcessPane);
-                                });
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    private void newFolderProcessHandler(File folder) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/snapshot/scan/FolderProcessScreen.fxml"));
+        loader.setControllerFactory(param -> initializeControllerCallable(folder));
+
+        try {
+            Pane folderProcessScreen = loader.load();
+            InterfaceExecutor.execute(() -> {
+                folderProcessScreen.setId(folder.getAbsolutePath());
+                indicatorFolder.getChildren().add(folderProcessScreen);
             });
-        });
+        } catch (IOException exc) {
+            logger.error("Ошибка при загрузке панели {}", loader.getLocation());
+            throw new RuntimeException(exc);
+        }
+
+        FolderProcessComponentController controller = loader.getController();
+        Service<Boolean> service = controller.getService();
+        services.add(service);
+    }
+
+    private Object initializeControllerCallable(File folder) {
+        Callable<?> controller = (Callable<FolderProcessComponentController>) () -> new FolderProcessComponentController(folder);
+        try {
+            return controller.call();
+        } catch (Exception exc) {
+            logger.error("Ошибка при вызове контроллера {}", controller, exc);
+            throw new RuntimeException(exc);
+        }
     }
 
     @FXML
     public void onStop() {
         services.forEach(Service::cancel);
         setPanel("/view/snapshot/scan/FolderSnapshotScreen.fxml");
-    }
-
-    @Override
-    public Object getUserData() {
-        return snapshotPane.getUserData();
-    }
-
-    @Override
-    public void setUserData(Parent panel, Object userData) {
     }
 }

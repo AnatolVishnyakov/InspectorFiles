@@ -11,6 +11,7 @@ import java.net.URL;
 public abstract class AbstractController {
     @FXML
     protected Pane snapshotPane;
+    private static Object userData;
 
     public void setPanel(String panel) {
         URL blockScreenLayout = getClass().getResource(panel);
@@ -24,5 +25,13 @@ public abstract class AbstractController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Object getUserData() {
+        return userData;
+    }
+
+    public void setUserData(Object userData) {
+        AbstractController.userData = userData;
     }
 }

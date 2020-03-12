@@ -2,6 +2,8 @@ package ru.inspector_files.controller.snapshot;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeView;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,6 +32,7 @@ public class FolderSnapshotController extends AbstractController implements Init
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("Инициализация контроллера {}", getClass());
+        buttonScan.setDisable(true);
         initializeFolderTreeView();
     }
 
@@ -40,6 +43,11 @@ public class FolderSnapshotController extends AbstractController implements Init
         FolderTree.getSelectedFolders().clear();
         Arrays.stream(localDisks).forEach(disk -> {
             FolderTree item = new FolderTree(disk);
+            item.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                buttonScan.disableProperty().bind(
+                        Bindings.size(FXCollections.observableSet(FolderTree.getSelectedFolders())).isEqualTo(0)
+                );
+            });
             root.getChildren().add(item);
         });
         folderTree.setRoot(root);

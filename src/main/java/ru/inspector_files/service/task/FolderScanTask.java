@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import ru.inspector_files.utils.FolderVisitorImpl;
 
 import java.io.File;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -29,12 +30,21 @@ public class FolderScanTask extends Task<Boolean> {
             super.updateMessage("Идёт вычисление размера директории");
             allFolderSize = FileUtils.sizeOfDirectory(folder);
             FolderVisitorImpl visitor = new FolderVisitorImpl(this);
-            Files.walkFileTree(folder.toPath(), visitor);
-            return true;
+            if (Files.isReadable(folder.toPath())) {
+                Files.walkFileTree(folder.toPath(), visitor);
+            } else {
+                logger.error("Нет доступа к каталогу {}", folder);
+                super.updateMessage("Нет доступа к каталогу");
+                return false;
+            }
+        } catch (AccessDeniedException e) {
+            logger.error("Ошибка доступа к каталогу {}", folder, e);
+            return false;
         } catch (Exception e) {
             logger.error("Произошла ошибка при сканировании каталога: {}", folder.getAbsolutePath(), e);
             return false;
         }
+        return true;
     }
 
     public void updateFolderPath(String title) {

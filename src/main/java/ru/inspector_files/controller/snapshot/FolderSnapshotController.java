@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 public class FolderSnapshotController extends AbstractController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(FolderSnapshotController.class);
+    private static final String PANEL_FOLDER_PROCESS_COMPONENT = "/view/snapshot/scan/FolderProcessScreen.fxml";
     @FXML
     private JFXTreeView<File> folderTree;
     @FXML
@@ -54,7 +55,7 @@ public class FolderSnapshotController extends AbstractController implements Init
     @FXML
     public void onScan() {
         setUserData(getSelectedFolders());
-        setPanel("/view/snapshot/scan/FolderProcessComponent.fxml");
+        setPanel(PANEL_FOLDER_PROCESS_COMPONENT);
     }
 
     private Set<File> getSelectedFolders() {

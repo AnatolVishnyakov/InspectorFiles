@@ -21,27 +21,28 @@ import java.util.concurrent.Callable;
 
 public class FolderProcessController extends AbstractController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(FolderProcessController.class);
+    private static final String PANEL_FOLDER_STATUS_COMPONENT = "/view/snapshot/scan/FolderStatusComponent.fxml";
     private final List<Service<Boolean>> services = new ArrayList<>();
     @FXML
-    public VBox indicatorFolder;
+    public VBox indicator;
 
     @Override
     @SuppressWarnings("unchecked")
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("Инициализация контроллера {}", getClass());
         HashSet<File> folders = (HashSet<File>) this.getUserData();
-        folders.forEach(this::newFolderProcessHandler);
+        folders.forEach(this::processHandler);
     }
 
-    private void newFolderProcessHandler(File folder) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/snapshot/scan/FolderProcessScreen.fxml"));
+    private void processHandler(File folder) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(PANEL_FOLDER_STATUS_COMPONENT));
         loader.setControllerFactory(param -> initializeControllerCallable(folder));
 
         try {
             Pane folderProcessScreen = loader.load();
             InterfaceExecutor.execute(() -> {
                 folderProcessScreen.setId(folder.getAbsolutePath());
-                indicatorFolder.getChildren().add(folderProcessScreen);
+                indicator.getChildren().add(folderProcessScreen);
             });
         } catch (IOException exc) {
             logger.error("Ошибка при загрузке панели {}", loader.getLocation());

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXProgressBar?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.Pane?>
-<Pane prefHeight="71.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ru.inspector_files.controller.snapshot.FolderProcessComponentController">
+<?import javafx.scene.layout.VBox?>
+<Pane fx:id="snapshotPane" opacity="0.5" prefHeight="558.0" prefWidth="827.0" styleClass="central-panel"
+      stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ru.inspector_files.controller.snapshot.FolderProcessController">
     <children>
-        <JFXProgressBar fx:id="progress" layoutX="21.0" layoutY="34.0" prefHeight="0.0" prefWidth="708.0"/>
-        <Label fx:id="stateInMemoryLabel" layoutX="21.0" layoutY="48.0"/>
-        <Label fx:id="durationInPercentage" alignment="CENTER_RIGHT" layoutX="682.0" layoutY="48.0" prefHeight="17.0"
-               prefWidth="47.0"/>
-        <Label fx:id="folderPath" layoutX="21.0" layoutY="7.0" prefHeight="17.0" prefWidth="708.0"/>
+        <Label layoutX="23.0" layoutY="14.0" prefHeight="37.0" prefWidth="206.0" text="Состояние сканирования"/>
+        <Separator layoutX="24.0" layoutY="60.0" prefHeight="3.0" prefWidth="760.0"/>
+        <VBox fx:id="indicator" styleClass="indicator-scan-progress-vbox" layoutX="26.0" layoutY="72.0" prefHeight="407.0" prefWidth="760.0"/>
+        <JFXButton layoutX="360.0" layoutY="491.0" onAction="#onStop" prefHeight="53.0"
+                   prefWidth="108.0" ripplerFill="#bc4131" styleClass="error" text="Остановить"/>
     </children>
 </Pane>

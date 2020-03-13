@@ -15,6 +15,7 @@ import ru.inspector_files.ui.InterfaceExecutor;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
 
 public class FolderProcessComponentController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(FolderProcessComponentController.class);
@@ -61,5 +62,15 @@ public class FolderProcessComponentController implements Initializable {
 
     public Service<Boolean> getService() {
         return service;
+    }
+
+    public static Object controllerCallable(File folder) {
+        Callable<?> controller = (Callable<FolderProcessComponentController>) () -> new FolderProcessComponentController(folder);
+        try {
+            return controller.call();
+        } catch (Exception exc) {
+            logger.error("Ошибка при вызове контроллера {}", controller, exc);
+            throw new RuntimeException(exc);
+        }
     }
 }

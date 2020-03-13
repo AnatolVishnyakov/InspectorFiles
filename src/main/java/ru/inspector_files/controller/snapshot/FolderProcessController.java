@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.Callable;
 
 public class FolderProcessController extends AbstractController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(FolderProcessController.class);
     private static final String PANEL_FOLDER_STATUS_COMPONENT = "/view/snapshot/scan/FolderStatusComponent.fxml";
+    private static final String PANEL_FOLDER_SNAPSHOT_SCREEN = "/view/snapshot/scan/FolderSnapshotScreen.fxml";
     private final List<Service<Boolean>> services = new ArrayList<>();
     @FXML
     public VBox indicator;
@@ -36,7 +36,7 @@ public class FolderProcessController extends AbstractController implements Initi
 
     private void processHandler(File folder) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(PANEL_FOLDER_STATUS_COMPONENT));
-        loader.setControllerFactory(param -> initializeControllerCallable(folder));
+        loader.setControllerFactory(param -> FolderProcessComponentController.controllerCallable(folder));
 
         try {
             Pane folderProcessScreen = loader.load();
@@ -54,19 +54,9 @@ public class FolderProcessController extends AbstractController implements Initi
         services.add(service);
     }
 
-    private Object initializeControllerCallable(File folder) {
-        Callable<?> controller = (Callable<FolderProcessComponentController>) () -> new FolderProcessComponentController(folder);
-        try {
-            return controller.call();
-        } catch (Exception exc) {
-            logger.error("Ошибка при вызове контроллера {}", controller, exc);
-            throw new RuntimeException(exc);
-        }
-    }
-
     @FXML
     public void onStop() {
         services.forEach(Service::cancel);
-        setPanel("/view/snapshot/scan/FolderSnapshotScreen.fxml");
+        setPanel(PANEL_FOLDER_SNAPSHOT_SCREEN);
     }
 }

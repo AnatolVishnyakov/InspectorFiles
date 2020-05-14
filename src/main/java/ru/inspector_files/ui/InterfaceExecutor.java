@@ -6,7 +6,7 @@ public final class InterfaceExecutor {
     private InterfaceExecutor() {
     }
 
-    public static void execute(ExecutableUI code) {
-        Platform.runLater(code::execute);
+    public static void execute(Runnable code) {
+        Platform.runLater(code::run);
     }
 }

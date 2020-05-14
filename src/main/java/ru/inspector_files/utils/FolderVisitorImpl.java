@@ -29,7 +29,7 @@ public class FolderVisitorImpl implements FileVisitor<Path> {
         if (task.isCancelled()) {
             return FileVisitResult.TERMINATE;
         }
-        return FileVisitResult.CONTINUE;
+        return FileVisitResult.TERMINATE;
     }
 
     @Override
@@ -44,7 +44,8 @@ public class FolderVisitorImpl implements FileVisitor<Path> {
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
         exc.printStackTrace();
-        return checkStateIsActive();
+//        return checkStateIsActive();
+        return FileVisitResult.SKIP_SIBLINGS;
     }
 
     @Override

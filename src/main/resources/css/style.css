@@ -55,7 +55,7 @@
 }
 
 .indicator-scan-progress-vbox > * {
-    -fx-border-color: #d6dfe6;
+    /*-fx-border-color: #d6dfe6;*/
 }
 
 /* Кнопки */

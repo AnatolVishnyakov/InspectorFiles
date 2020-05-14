@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.inspector_files.ui.InterfaceExecutor;
+import ru.inspector_files.service.FolderVisitorService;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,34 +24,33 @@ public class FolderProcessController extends AbstractController implements Initi
     private static final String PANEL_FOLDER_SNAPSHOT_SCREEN = "/view/snapshot/scan/FolderSnapshotScreen.fxml";
     private final List<Service<Boolean>> services = new ArrayList<>();
     @FXML
-    public VBox indicator;
+    private VBox indicator;
 
     @Override
     @SuppressWarnings("unchecked")
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("Инициализация контроллера {}", getClass());
         HashSet<File> folders = (HashSet<File>) this.getUserData();
-        folders.forEach(this::processHandler);
-    }
+        folders.forEach(folder -> {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(PANEL_FOLDER_STATUS_COMPONENT));
+            loader.setControllerFactory(param -> FolderProcessComponentController.controllerCallable(folder));
 
-    private void processHandler(File folder) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(PANEL_FOLDER_STATUS_COMPONENT));
-        loader.setControllerFactory(param -> FolderProcessComponentController.controllerCallable(folder));
-
-        try {
-            Pane folderProcessScreen = loader.load();
-            InterfaceExecutor.execute(() -> {
+            Pane folderProcessScreen;
+            try {
+                folderProcessScreen = loader.load();
                 folderProcessScreen.setId(folder.getAbsolutePath());
-                indicator.getChildren().add(folderProcessScreen);
+            } catch (IOException exc) {
+                logger.error("Ошибка при загрузке панели {}", loader.getLocation());
+                throw new RuntimeException(exc);
+            }
+            FolderVisitorService service = new FolderVisitorService(folder);
+            service.setOnRunning(event -> indicator.getChildren().add(folderProcessScreen));
+            service.setOnSucceeded(event -> {
+                indicator.getChildren().remove(folderProcessScreen);
             });
-        } catch (IOException exc) {
-            logger.error("Ошибка при загрузке панели {}", loader.getLocation());
-            throw new RuntimeException(exc);
-        }
-
-        FolderProcessComponentController controller = loader.getController();
-        Service<Boolean> service = controller.getService();
-        services.add(service);
+            service.start();
+            services.add(service);
+        });
     }
 
     @FXML

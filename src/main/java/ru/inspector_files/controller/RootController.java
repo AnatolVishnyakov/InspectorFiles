@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class RootController implements Initializable {
@@ -21,6 +23,7 @@ public class RootController implements Initializable {
     private JFXButton buttonMinimize;
     @FXML
     private BorderPane contentPanel;
+    private Map<Initializable, String> navigation = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

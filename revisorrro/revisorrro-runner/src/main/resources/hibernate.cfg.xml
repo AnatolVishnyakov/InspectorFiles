@@ -1,0 +1,58 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <!--  H2 Database  -->
+    <!--    <session-factory>-->
+    <!--        &lt;!&ndash; JDBC Database connection settings &ndash;&gt;-->
+    <!--        <property name="hibernate.connection.driver_class">org.h2.Driver</property>-->
+    <!--        <property name="hibernate.connection.url">jdbc:h2:file:~/db/snapshot;AUTO_SERVER=TRUE;INIT=RUNSCRIPT FROM-->
+    <!--            'classpath:scripts/init.sql';-->
+    <!--        </property>-->
+    <!--        <property name="hibernate.connection.username">sa</property>-->
+    <!--        <property name="hibernate.connection.password"/>-->
+
+    <!--        &lt;!&ndash; JDBC connection pool (use the built-in) &ndash;&gt;-->
+    <!--        <property name="connection.pool_size">16</property>-->
+
+    <!--        &lt;!&ndash; SQL dialect &ndash;&gt;-->
+    <!--        <property name="dialect">org.hibernate.dialect.H2Dialect</property>-->
+
+    <!--        &lt;!&ndash; Enable Hibernate's automatic session context management &ndash;&gt;-->
+    <!--        &lt;!&ndash;        <property name="current_session_context_class">thread</property>&ndash;&gt;-->
+
+    <!--        &lt;!&ndash; Echo all executed SQL to stdout &ndash;&gt;-->
+    <!--        &lt;!&ndash;        <property name="show_sql">true</property>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <property name="format_sql">true</property>&ndash;&gt;-->
+
+    <!--        <property name="hibernate.jdbc.batch_size">1000</property>-->
+    <!--        <property name="hbm2ddl.auto">create</property>-->
+
+    <!--        <mapping class="ru.inspector_files.model.Document"/>-->
+    <!--    </session-factory>-->
+    <session-factory>
+        <!-- JDBC Database connection settings -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/revisor</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">qq@zxc%123</property>
+
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">16</property>
+
+        <!-- SQL dialect -->
+        <!--        <property name="dialect">org.hibernate.dialect.H2Dialect</property>-->
+
+        <!-- Enable Hibernate's automatic session context management -->
+        <!--        <property name="current_session_context_class">thread</property>-->
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">false</property>
+        <property name="format_sql">true</property>
+
+        <property name="hibernate.jdbc.batch_size">1000</property>
+        <property name="hbm2ddl.auto">create</property>
+
+        <mapping class="ru.inspector_files.model.Document"/>
+    </session-factory>
+</hibernate-configuration>

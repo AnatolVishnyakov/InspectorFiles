@@ -1,0 +1,75 @@
+/* Константы */
+* {
+    /* Цветовая палитра */
+    -fx-primary-color: #013760;
+    -fx-primary-advanced-color: #2d587b;
+    -fx-secondary-color: #FAFAFA;
+    -fx-panel-color: #d6dfe6;
+    -fx-button-color: #012347;
+}
+
+/* Основное окно приложения*/
+.window-root {
+    -fx-background-color: -fx-primary-color;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+/* Рабочая область */
+.central-panel {
+    -fx-background-radius: 10 0 0 10;
+    -fx-border-radius: 10;
+    -fx-background-color: -fx-secondary-color;
+}
+
+.window-root .jfx-button {
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto Medium";
+}
+
+/* Верхняя навигация */
+.navigation-horizontal-box .jfx-button {
+    -fx-text-fill: -fx-secondary-color;
+}
+
+/* Боковая навигация */
+.navigation-vertical-box .jfx-button {
+    -fx-text-fill: -fx-secondary-color;
+    -fx-padding: 0 0 0 40;
+    -fx-alignment: LEFT;
+}
+
+/* Панель с деталями о хранилище */
+.window-root .storage-pane {
+    -fx-text-fill: #cfd8dc;
+    -fx-font-family: "Roboto Bold";
+}
+
+.storage-pane .label {
+    -fx-text-fill: #cfd8dc;
+    -fx-font-family: "Roboto Bold";
+}
+
+.storage-pane .separator *.line {
+    -fx-border-color: #2d587b;
+}
+
+.indicator-scan-progress-vbox > * {
+    /*-fx-border-color: #d6dfe6;*/
+}
+
+/* Кнопки */
+.info {
+    -fx-background-color: -fx-primary-advanced-color;
+    -fx-text-fill: -fx-secondary-color;
+
+}
+
+.error {
+    -fx-background-color: #9f1f0e;
+    -fx-text-fill: -fx-secondary-color;
+}
+
+.stub {
+    -fx-background-color: #CFD8DC;
+}

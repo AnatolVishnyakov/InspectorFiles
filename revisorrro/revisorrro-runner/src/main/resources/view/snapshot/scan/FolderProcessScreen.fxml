@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<Pane fx:id="snapshotPane" opacity="0.5" prefHeight="558.0" prefWidth="827.0" styleClass="central-panel"
+      stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ru.inspector_files.controller.snapshot.FolderProcessController">
+    <children>
+        <Label layoutX="23.0" layoutY="14.0" prefHeight="37.0" prefWidth="206.0" text="Состояние сканирования"/>
+        <Separator layoutX="24.0" layoutY="60.0" prefHeight="3.0" prefWidth="760.0"/>
+        <ScrollPane hbarPolicy="NEVER" layoutX="26.0" layoutY="72.0" prefHeight="407.0" prefWidth="760.0">
+            <content>
+                <VBox fx:id="indicator" styleClass="indicator-scan-progress-vbox"/>
+            </content>
+        </ScrollPane>
+        <JFXButton layoutX="360.0" layoutY="491.0" onAction="#onStop" prefHeight="53.0" prefWidth="108.0"
+                   styleClass="error" text="Остановить"/>
+    </children>
+</Pane>

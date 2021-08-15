@@ -4,9 +4,12 @@
 
     <groupId>ru.projects</groupId>
     <artifactId>inspectorfiles</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>revisorrro</module>
+    </modules>
 
     <name>Inspector files</name>
 
@@ -69,15 +72,15 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                    <!-- <encoding>UTF-8</encoding> -->
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <source>8</source>-->
+<!--                    <target>8</target>-->
+<!--                    &lt;!&ndash; <encoding>UTF-8</encoding> &ndash;&gt;-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>com.zenjava</groupId>
